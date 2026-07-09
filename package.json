@@ -1,6 +1,6 @@
 {
   "name": "ui-ux-components-pxml",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Comprehensive pxml UI/UX component library (~150 base components across 15 genres) for AI-compiled web projects. Use a tag via extends + attach an llm-judge prompt to restyle.",
   "keywords": [
     "pxml",
