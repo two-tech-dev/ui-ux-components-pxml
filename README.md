@@ -20,33 +20,38 @@ own instructions. Unused components are simply not generated.
 
 ## Install / reference
 
-This is a local pxml package. Copy or symlink it next to your project, then import it.
+**Recommended — install from git with the pxml CLI** (clones into `packages/` and wires the editor schema):
 
-**Full library (every component available as `uix:<cat>:<name>`):**
+```bash
+pxml plugin url-git https://github.com/two-tech-dev/ui-ux-components-pxml.git
+```
 
 ```xml
-<import package="ui-ux-components" from="packages/ui-ux-components" as="uix" />
+<import package="ui-ux-components-pxml" from="packages/ui-ux-components-pxml" as="uix" />
 ```
+
+**Or npm:** `npm i ui-ux-components-pxml`, then `from="node_modules/ui-ux-components-pxml"`.
 
 **Selective (cheaper — only that genre's components enter the build):**
 
 ```xml
-<import src="packages/ui-ux-components/components/auth.xml" as="uix-auth" />
+<import src="packages/ui-ux-components-pxml/components/auth.xml" as="uix-auth" />
 <!-- components become: uix-auth:login, uix-auth:signup, ... -->
 ```
 
 ## Usage example
 
 ```xml
-<!-- 1. bring in the library -->
-<import package="ui-ux-components" from="packages/ui-ux-components" as="uix" />
+<!-- 1. install first: pxml plugin url-git https://github.com/two-tech-dev/ui-ux-components-pxml.git -->
+<!-- 2. bring in the library -->
+<import package="ui-ux-components-pxml" from="packages/ui-ux-components-pxml" as="uix" />
 
-<!-- 2. a plain login page (default style) -->
+<!-- 3. a plain login page (default style) -->
 <node id="page.login" type="ui-component" flow="auth" extends="uix:auth:login">
   <meta><path>app/login/page.tsx</path></meta>
 </node>
 
-<!-- 3. the same login, restyled via an attached prompt -->
+<!-- 4. the same login, restyled via an attached prompt -->
 <node id="page.login.branded" type="ui-component" flow="auth" extends="uix:auth:login">
   <meta><path>app/(auth)/login/page.tsx</path></meta>
   <constraint verify="llm-judge">Dark glassmorphism: bg-slate-950, card bg-white/10 backdrop-blur-xl,
@@ -124,25 +129,31 @@ Bind it by adding to your project's `.vscode/settings.json`:
 when pulled from git.) After this, typing `flow="` suggests `auth`/`ecommerce`/…, and hovering a
 `<node>` shows the full component catalog.
 
-> Note: because each project chooses its own import `as` alias, the editor cannot autocomplete the
-> exact `extends="uix:auth:login"` value — the alias prefix is dynamic. It *can* suggest `flow`/`type`
-> and document every component, which covers discovery. See option B for automatic wiring.
+> Note: exact `extends="uix:auth:login"` values ARE suggested — the package schema (A) enumerates
+> them assuming the conventional `uix` alias, and the compiler (B) enumerates them from your *actual*
+> alias. `flow`/`type` are also suggested. If you use a non-`uix` alias with manual binding (A only),
+> adjust the alias in `scripts/gen-schema.mjs` and regenerate.
 
 ### B. Zero-config (pxml compiler auto-sync)
 
 If your pxml compiler includes the editor-schema auto-sync (see the `two-tech-dev/pxml` repo),
-**importing this package from git is enough** — no manual binding needed:
+**no manual binding is needed** — works for both install paths:
 
-```xml
-<import package="ui-ux-components-pxml"
-        from="github:two-tech-dev/ui-ux-components-pxml" as="uix" />
-```
+- **Local install** (recommended): `pxml plugin url-git <url>` puts the package in `packages/`
+  and binds its `catalog.xml` immediately. Then:
 
-On the next `pxml validate` / `pxml compile`, the compiler clones the package, derives an enriched
-schema from the *actual* cloned components (enumerating their `flow`s/`type`s), writes
-`.pxml/schemas/pxml.enriched.xsd` + `.pxml/catalog.xml`, and registers `.pxml/catalog.xml` in
-`.vscode/settings.json` automatically. Autocomplete (and docs) light up with zero config. Flow/type
-enumerations are unions with `xs:string`, so custom values you add still validate — no false errors.
+  ```xml
+  <import package="ui-ux-components-pxml" from="packages/ui-ux-components-pxml" as="uix" />
+  ```
+
+- **Git import**: `from="github:two-tech-dev/ui-ux-components-pxml"` also works.
+
+On the next `pxml validate` / `pxml compile`, the compiler derives an enriched schema from the
+*actual* imported components (enumerating their `flow`s/`type`s **and the exact `extends` values
+using your import alias**), writes `.pxml/schemas/pxml.enriched.xsd` + `.pxml/catalog.xml`, and
+registers `.pxml/catalog.xml` in `.vscode/settings.json` automatically. Autocomplete (and docs)
+light up with zero config. `flow`/`type`/`extends` enumerations are unions with `xs:string`, so
+custom values you add still validate — no false errors.
 
 ## Notes
 

@@ -4,9 +4,9 @@
 
      Các bước (terminal):
        1) pxml init                      # scaffold project, copy pxml.xsd
-       2) git clone / npm i package vào  packages/ui-ux-components-pxml
-          (hoặc import thẳng từ github — xem dòng <import> dưới)
-       3) pxml validate                 # clone git pkg + sinh schema autocomplete
+       2) pxml plugin url-git https://github.com/two-tech-dev/ui-ux-components-pxml.git
+          # clone package vào packages/ui-ux-components-pxml + bind schema editor
+       3) pxml validate                 # sinh enriched schema (alias-aware) + autocomplete
        4) pxml compile                  # AI sinh code từng component đã extends
 
      Trong editor (VS Code + XML extension):
@@ -19,10 +19,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="pxml.xsd">
 
-  <!-- B1. Import package. Alias `uix` là do BẠN chọn → schema sẽ gợi ý
-       extends="uix:..." chính xác theo alias này. -->
+  <!-- B1. Import package đã cài vào packages/. Alias `uix` do BẠN chọn
+       → schema (cả shipped lẫn B tự sinh) gợi ý extends="uix:..." chính xác. -->
   <import package="ui-ux-components-pxml"
-          from="github:two-tech-dev/ui-ux-components-pxml" as="uix" />
+          from="packages/ui-ux-components-pxml" as="uix" />
 
   <!-- B2. Muốn gọn hơn? Import chỉ 1 genre (rẻ token, chỉ genre đó vào build):
        <import src="packages/ui-ux-components-pxml/components/auth.xml" as="uix-auth" />
