@@ -1,0 +1,40 @@
+<project name="uix-booking" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- BOOKING / SCHEDULING / RESERVATION                           -->
+  <!-- For hotels, restaurants, clinics, salons, events, travel.    -->
+  <!-- ============================================================= -->
+
+  <node id="bookingWidget" type="ui-component" flow="booking">
+    <meta><path>components/ui/booking/BookingWidget.tsx</path></meta>
+    <constraint verify="static">Export default React component `BookingWidget` accepting `fields` (e.g. destination/date/guests), `onSearch`. Compact search panel. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Rounded-2xl shadow-xl bg-white p-4 grid of fields (location combobox, date range, guests stepper) that collapses to a single CTA on mobile; primary "Search" Button full-width on lg. Sticky variant for hero. Used by travel/hotel/rental sites.</constraint>
+  </node>
+
+  <node id="appointmentScheduler" type="ui-component" flow="booking">
+    <meta><path>components/ui/booking/AppointmentScheduler.tsx</path></meta>
+    <constraint verify="static">Export default React component `AppointmentScheduler` accepting `slots` (by date), `duration`, `onSelect`, `timezone?`. Date column + time-slot grid. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Two-pane: left date strip (vertical days, selected ring-indigo-500), right grid of time-slot pills (rounded-lg border, available hover:border-indigo-500 hover:text-indigo-600, booked bg-slate-100 text-slate-400 line-through, selected bg-indigo-600 text-white). Header shows month + practitioner. Great for clinics, salons, consultants.</constraint>
+  </node>
+
+  <node id="dateRangePicker" type="ui-component" flow="booking">
+    <meta><path>components/ui/booking/DateRangePicker.tsx</path></meta>
+    <constraint verify="static">Export default React component `DateRangePicker` accepting `value` ({from,to}), `onChange`, `min?`, `numberOfMonths?` (1-2). Dual calendar, range highlight. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Popover with two side-by-side DatePicker months; dragging/clicking selects a start then end, in-between days get bg-indigo-50, endpoints bg-indigo-600 text-white rounded. Footer shows "Jun 12 – Jun 18" + Apply/Clear. Used by BookingWidget and reports.</constraint>
+  </node>
+
+  <node id="reservationConfirm" type="ui-component" flow="booking">
+    <meta><path>components/ui/booking/ReservationConfirm.tsx</path></meta>
+    <constraint verify="static">Export default React component `ReservationConfirm` accepting `reservation` ({title,details[],date,location,price?,qr?}) and `onChange`/`onCancel`. Summary + actions. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card with a success check banner (bg-emerald-50 text-emerald-700), detail rows (icon + label + value) separated by dividers, optional QR/code block, and secondary "Modify"/"Cancel" buttons + primary "Add to calendar". Print-friendly.</constraint>
+  </node>
+
+  <node id="seatMap" type="ui-component" flow="booking">
+    <meta><path>components/ui/booking/SeatMap.tsx</path></meta>
+    <constraint verify="static">Export default React component `SeatMap` accepting `rows`, `seatsPerRow`, `occupied` (set), `selected`, `onToggle`, `legend?`. Interactive grid (cinema/event/transport). Tailwind only, scrollable.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Grid of small rounded squares: available bg-white border-slate-300, selected bg-indigo-600, occupied bg-slate-200 text-slate-400 cursor-not-allowed, premium/vip bg-amber-100. An aisle gap between columns, row letters on the left, screen/sea indicator on top, legend below. Touch-friendly.</constraint>
+  </node>
+
+</project>

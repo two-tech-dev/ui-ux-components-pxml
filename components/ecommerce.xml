@@ -1,0 +1,93 @@
+<project name="uix-ecommerce" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- E-COMMERCE                                                    -->
+  <!-- ============================================================= -->
+
+  <node id="productCard" type="ui-component" flow="ecommerce">
+    <meta><path>components/ui/ecommerce/ProductCard.tsx</path></meta>
+    <constraint verify="static">Export default React component `ProductCard` accepting `product` ({id,title,price,image,rating?,badge?}) and `onAddToCart`. Tailwind only, links to /products/{id}.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card with image top (aspect-square object-cover rounded-t-xl), body p-4: title font-medium text-slate-900 truncate, price text-lg font-bold, optional star rating (text-amber-400). Badge (e.g. "Sale") absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded. Hover: image zoom + shadow. Add-to-cart icon button bottom-right bg-indigo-600 text-white rounded-full.</constraint>
+  </node>
+
+  <node id="productGrid" type="ui-component" flow="ecommerce">
+    <meta><path>components/ui/ecommerce/ProductGrid.tsx</path></meta>
+    <constraint verify="static">Export default React component `ProductGrid` accepting `products` (array) and rendering a responsive Grid of ProductCard. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Responsive Grid: 2 cols mobile, 3 cols md, 4 cols lg, gap-6. Empty state message when products is empty. Each cell renders ProductCard. Wrap in a Container.</constraint>
+  </node>
+
+  <node id="productDetail" type="ui-component" flow="ecommerce">
+    <meta><path>components/ui/ecommerce/ProductDetail.tsx</path></meta>
+    <constraint verify="static">Export default React component `ProductDetail` accepting `product` ({title,price,images[],description,variants?,rating?}) with image gallery, quantity selector, add-to-cart and buy-now buttons. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Two-column on lg (gallery left, info right), stacked mobile. Gallery: main image + thumbnail strip, active thumb ring-indigo-500. Info: breadcrumb, title text-3xl, price text-2xl font-bold, star rating, description prose, variant chips (rounded-full border, selected ring-indigo-500), quantity stepper (- N +), two buttons: primary "Add to cart" (indigo) and secondary "Buy now". Sticky info on desktop.</constraint>
+  </node>
+
+  <node id="cart" type="ui-component" flow="ecommerce">
+    <meta><path>components/ui/ecommerce/Cart.tsx</path></meta>
+    <constraint verify="static">Export default React component `Cart` accepting `items` (array of {id,title,price,qty,image}), `onQtyChange`, `onRemove` and `onCheckout`. Shows subtotal. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] List of line items (thumbnail + title + price, qty stepper, remove X). Right (or bottom) summary Card: subtotal, shipping estimate, total font-bold, full-width "Checkout" Button (indigo). Empty cart shows illustration + "Your cart is empty" + continue-shopping link. Smooth item removal.</constraint>
+  </node>
+
+  <node id="checkout" type="ui-component" flow="ecommerce">
+    <meta><path>components/ui/ecommerce/Checkout.tsx</path></meta>
+    <constraint verify="static">Export default React component `Checkout` accepting `summary` (ReactNode) with contact, shipping and payment form sections + place-order button. Client-side required validation. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Two-column on lg: left form (contact email, shipping address grid, payment card mock inputs) using Card sections with labels; right sticky order summary Card. Place-order full-width indigo Button at bottom of form. Inputs consistent with auth screens (rounded-lg border, indigo focus). Show inline validation errors.</constraint>
+  </node>
+
+  <node id="wishlist" type="ui-component" flow="ecommerce">
+    <meta><path>components/ui/ecommerce/Wishlist.tsx</path></meta>
+    <constraint verify="static">Export default React component `Wishlist` accepting `items` (array) rendering ProductCard grid with a remove (heart) action. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Page heading "Your Wishlist" + a ProductGrid of items. Each card shows a filled heart button (text-red-500) top-right to remove. Empty state: heart icon + "No saved items yet" + browse link. Mirrors store spacing.</constraint>
+  </node>
+
+  <node id="orderHistory" type="ui-component" flow="ecommerce">
+    <meta><path>components/ui/ecommerce/OrderHistory.tsx</path></meta>
+    <constraint verify="static">Export default React component `OrderHistory` accepting `orders` (array of {id,date,total,status,items[]}). Renders a list/table of past orders with status badges. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Heading "Order History". Each order is a Card row: order #id + date (text-slate-500), status badge (processing=amber, shipped=blue, delivered=emerald, cancelled=slate), item thumbnails strip, total font-bold. Expandable to show item list. Stacked on mobile, comfortable spacing.</constraint>
+  </node>
+
+  <node id="filterPanel" type="ui-component" flow="ecommerce">
+    <meta><path>components/ui/ecommerce/FilterPanel.tsx</path></meta>
+    <constraint verify="static">Export default React component `FilterPanel` accepting `filters` ({type:'price'|'checkbox'|'rating'|'color',label,options?}), `values`, `onChange`, `onClear`. Sidebar faceted filters. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Stacked filter groups (Collapsible/Accordion): price as Slider with inputs, checkbox groups for brand/size/color (color shows swatches), rating as star RadioGroup ("4★ & up"), applied filters as removable chips at top, "Clear all" link. On mobile becomes a Drawer triggered by a "Filters" button. Indigo accent.</constraint>
+  </node>
+
+  <node id="quickView" type="ui-component" flow="ecommerce">
+    <meta><path>components/ui/ecommerce/QuickView.tsx</path></meta>
+    <constraint verify="static">Export default React component `QuickView` accepting `product` and `onAddToCart`, rendered inside a Modal. Fast product peek without leaving the grid. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Modal with two-column: gallery left, info right (title, price, rating, short description, variant chips, qty stepper, Add-to-cart + "View full details" link). Closes on Esc/backdrop. Mirrors ProductDetail compactly.</constraint>
+  </node>
+
+  <node id="reviewList" type="ui-component" flow="ecommerce">
+    <meta><path>components/ui/ecommerce/ReviewList.tsx</path></meta>
+    <constraint verify="static">Export default React component `ReviewList` accepting `reviews` ({author,rating,date,title?,body,helpful?}), `summary` ({average,count,distribution}) with sort + "write review". Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Header: big average (Rating stars + "{count} reviews") + distribution bars (5★→1★ with indigo fill). List of review Cards (author Avatar + name + date, stars, title font-medium, body, "Helpful (n)" button). Sort dropdown (newest/highest). Used on ProductDetail.</constraint>
+  </node>
+
+  <node id="reviewForm" type="ui-component" flow="ecommerce">
+    <meta><path>components/ui/ecommerce/ReviewForm.tsx</path></meta>
+    <constraint verify="static">Export default React component `ReviewForm` accepting `onSubmit` with Rating input, title, body, optional photo(s). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card form: interactive Rating (big stars), title TextField, body TextArea, optional photo FileUpload (thumbnails), primary "Submit review" Button. Inline validation. Pairs with ReviewList.</constraint>
+  </node>
+
+  <node id="couponInput" type="ui-component" flow="ecommerce">
+    <meta><path>components/ui/ecommerce/CouponInput.tsx</path></meta>
+    <constraint verify="static">Export default React component `CouponInput` accepting `onApply`, `applied?` (code+discount), `onRemove`. Inline promo-code field. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] InputGroup: text field (placeholder "Promo code") + "Apply" Button; when applied show a success Badge ("SAVE10 −15%") with an x to remove. Used in Cart/Checkout. Indigo accent, green success.</constraint>
+  </node>
+
+  <node id="orderTracking" type="ui-component" flow="ecommerce">
+    <meta><path>components/ui/ecommerce/OrderTracking.tsx</path></meta>
+    <constraint verify="static">Export default React component `OrderTracking` accepting `order` ({number,steps:[{label,date?,done?}],eta?,carrier?,trackingNo?}) with a progress Timeline. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card: order # + carrier/tracking link at top, a horizontal Stepper/Timeline (Ordered → Shipped → Out for delivery → Delivered, done=indigo filled, current=pulsing), ETA highlighted, map/status note. Mirrors shipment progress clearly. Used post-purchase.</constraint>
+  </node>
+
+  <node id="sizeGuide" type="ui-component" flow="ecommerce">
+    <meta><path>components/ui/ecommerce/SizeGuide.tsx</path></meta>
+    <constraint verify="static">Export default React component `SizeGuide` accepting `rows` ({size,measurements…}) and `unit` ('cm'|'in'), opened via a link/Popover. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Compact table (size XS–XXL × chest/waist/length) inside a Popover or Modal triggered by "Size guide"; header units toggle cm/in; current selected size row highlighted. Calm, readable, reduces returns.</constraint>
+  </node>
+
+</project>

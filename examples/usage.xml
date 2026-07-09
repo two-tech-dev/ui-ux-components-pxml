@@ -1,0 +1,52 @@
+<project name="my-website" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ========================================================= -->
+  <!-- 1) Import the component library (full package)            -->
+  <!--    -> every component is reachable as  uix:<cat>:<name>   -->
+  <!-- Selective alternative (cheaper, generates only that set): -->
+  <!-- <import src="../components/auth.xml" as="uix-auth" />      -->
+  <!-- ========================================================= -->
+  <import package="ui-ux-components" from="packages/ui-ux-components" as="uix" />
+
+  <!-- ========================================================= -->
+  <!-- 2) Use a tag + attach a prompt to restyle it.             -->
+  <!--    `extends` pulls in the component's default style; your -->
+  <!--    <constraint verify="llm-judge"> is the prompt that     -->
+  <!--    overrides/augments that default style.                 -->
+  <!-- ========================================================= -->
+
+  <!-- Just use the default login card -->
+  <node id="page.login" type="ui-component" flow="auth" extends="uix:auth:login">
+    <meta><path>app/login/page.tsx</path></meta>
+  </node>
+
+  <!-- Login, but restyled via an attached prompt -->
+  <node id="page.login.branded" type="ui-component" flow="auth" extends="uix:auth:login">
+    <meta><path>app/(auth)/login/page.tsx</path></meta>
+    <constraint verify="llm-judge">Restyle to a dark, glassmorphism login: bg-slate-950 text-white, card bg-white/10 backdrop-blur-xl border border-white/20, accent emerald-400 instead of indigo, add a Google + GitHub social login row on top (reuse the SocialLogin component). Keep all fields and validation.</constraint>
+  </node>
+
+  <!-- Marketing landing built from multiple tags -->
+  <node id="page.home" type="ui-component" flow="marketing" extends="uix:marketing:hero">
+    <meta><path>app/page.tsx</path></meta>
+    <constraint verify="llm-judge">SaaS hero: eyebrow "AI-powered", title "Ship faster with pxml", gradient from fuchsia-600 to indigo-600 text, primary CTA "Get started", media = a mock dashboard preview.</constraint>
+  </node>
+
+  <node id="section.features" type="ui-component" flow="marketing" extends="uix:marketing:features">
+    <meta><path>components/sections/Features.tsx</path></meta>
+    <constraint verify="llm-judge">Three features: "Declarative specs", "Self-healing fixes", "Token-billed". Use outline icons, keep the indigo accent.</constraint>
+  </node>
+
+  <node id="section.pricing" type="ui-component" flow="marketing" extends="uix:marketing:pricing">
+    <meta><path>components/sections/Pricing.tsx</path></meta>
+  </node>
+
+  <!-- E-commerce product grid -->
+  <node id="shop.grid" type="ui-component" flow="ecommerce" extends="uix:ecommerce:productGrid">
+    <meta><path>app/shop/page.tsx</path></meta>
+    <constraint verify="llm-judge">Make cards warmer: amber accent on price and "Add to cart", rounded-2xl, show a soft "Free shipping" badge.</constraint>
+  </node>
+
+</project>

@@ -1,0 +1,51 @@
+<project name="uix-social" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- SOCIAL / COMMUNITY                                            -->
+  <!-- ============================================================= -->
+
+  <node id="commentSection" type="ui-component" flow="social">
+    <meta><path>components/ui/social/CommentSection.tsx</path></meta>
+    <constraint verify="static">Export default React component `CommentSection` accepting `comments` (array of {id,author,avatar?,body,time,replies?}) with a composer box + reply support. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Threaded list: top composer (avatar + textarea + "Comment" Button indigo), then comments indented by depth (replies pl-8 border-l border-slate-100). Each comment: avatar + author font-medium + time text-xs text-slate-400 + body, hover "Reply" link that opens an inline composer. Like button optional. Smooth, neutral palette.</constraint>
+  </node>
+
+  <node id="feed" type="ui-component" flow="social">
+    <meta><path>components/ui/social/Feed.tsx</path></meta>
+    <constraint verify="static">Export default React component `Feed` accepting `posts` (array of {author,avatar?,time,text,image?,likes,comments}) rendering an infinite-scroll-style timeline. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Single centered column max-w-xl of post Cards: header (avatar + author + time + ⋯ menu), body text, optional image (rounded-xl), footer action row (like ♥ with count, comment, share) with hover states. Composer pinned at top. Generous spacing, light bg, like animation on tap.</constraint>
+  </node>
+
+  <node id="profilePage" type="ui-component" flow="social">
+    <meta><path>components/ui/social/ProfilePage.tsx</path></meta>
+    <constraint verify="static">Export default React component `ProfilePage` accepting `user` ({name,handle,avatar,bio,cover?,stats:{posts,followers,following},isFollowing}) with follow/edit button + tabs (Posts/Media/Likes). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Cover banner (h-40 bg-gradient-to-r from-indigo-500 to-purple-500) with overlapping avatar (rounded-full ring-4 ring-white -mt-12 w-24). Name font-bold text-xl + @handle + bio. Stat row (Posts/Followers/Following counts). Primary action button ("Follow" indigo / "Following" outline / "Edit profile"). Below: Tabs switching content panels. Responsive, centered container.</constraint>
+  </node>
+
+  <node id="chat" type="ui-component" flow="social">
+    <meta><path>components/ui/social/Chat.tsx</path></meta>
+    <constraint verify="static">Export default React component `Chat` accepting `peer` ({name,avatar,online?}), `messages` ({from,body,time,status?}), `onSend`, `typing?`. 1:1 realtime-style DM. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Floating (or full) panel: header with Avatar + name + online dot + actions, scrollable bubble thread (mine indigo right, theirs white left, ticks for read), typing indicator (three bouncing dots), composer (TextField + send, optional attach). Smooth entrance. Powers DMs & support chat.</constraint>
+  </node>
+
+  <node id="stories" type="ui-component" flow="social">
+    <meta><path>components/ui/social/Stories.tsx</path></meta>
+    <constraint verify="static">Export default React component `Stories` accepting `stories` ({id,user,avatar,seen?}), `onOpen`. Horizontal reel of circular previews opening a viewer. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Horizontal scroll row of w-16 circles (ring-2 gradient ring-indigo-500 to-fuchsia-500 when unread, slate when seen) with name under; click opens a full-screen viewer (progress bars at top, tap left/right to navigate, X to close). Instagram/Snapchat-style.</constraint>
+  </node>
+
+  <node id="notificationFeed" type="ui-component" flow="social">
+    <meta><path>components/ui/social/NotificationFeed.tsx</path></meta>
+    <constraint verify="static">Export default React component `NotificationFeed` accepting `items` ({actor,avatar?,verb,target,time,read?,type?}) as a full page (distinct from the Notification dropdown). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Page list of notification rows: Avatar + "Actor verb target" (actor bold, unread bg-indigo-50 + dot), relative time, type icon (like=rose, follow=indigo, comment=slate). "Mark all read" + filter tabs (All/Unread/Mentions). Dense, scannable, like X/LinkedIn notifications.</constraint>
+  </node>
+
+  <node id="events" type="ui-component" flow="social">
+    <meta><path>components/ui/social/Events.tsx</path></meta>
+    <constraint verify="static">Export default React component `Events` accepting `events` ({id,title,cover,date,location,going?,interested?}) in a grid + an "Interested/Going" RSVP. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Grid of event Cards (cover image, date pill overlay, title, location with pin, RSVP buttons "Interested"(secondary)/"Going"(primary indigo) with attendee Avatars stack). Header with list/map toggle. Facebook/Meetup-style community events.</constraint>
+  </node>
+
+</project>

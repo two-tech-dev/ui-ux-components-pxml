@@ -1,0 +1,75 @@
+<project name="uix-navigation" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- NAVIGATION & WAYFINDING                                       -->
+  <!-- ============================================================= -->
+
+  <node id="navbar" type="ui-component" flow="navigation">
+    <meta><path>components/ui/navigation/Navbar.tsx</path></meta>
+    <constraint verify="static">Export default React component `Navbar` accepting `brand`, `links` (array of {label,href}) and `actions` (ReactNode). Tailwind only, sticky top-0, responsive with mobile menu.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Sticky translucent header: `sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200`. Left brand (font-bold text-lg). Center nav links hidden on mobile, shown as horizontal list on md+. Right actions slot. Mobile: hamburger toggles a stacked dropdown panel. Links use text-slate-600 hover:text-slate-900.</constraint>
+  </node>
+
+  <node id="sidebar" type="ui-component" flow="navigation">
+    <meta><path>components/ui/navigation/Sidebar.tsx</path></meta>
+    <constraint verify="static">Export default React component `Sidebar` accepting `items` (array of {label,href,icon?}), `activePath` (string) and `collapsible` (boolean). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Fixed-width left rail w-64 bg-slate-900 text-slate-300, hidden on mobile (drawer on small screens). Items are stacked links with rounded-md px-3 py-2; active item gets bg-slate-800 text-white font-medium. Collapsible variant shrinks to w-16 showing icons only.</constraint>
+  </node>
+
+  <node id="footer" type="ui-component" flow="navigation">
+    <meta><path>components/ui/navigation/Footer.tsx</path></meta>
+    <constraint verify="static">Export default React component `Footer` accepting `columns` (array of {title, links:[{label,href}]}), `brand`, `social` (ReactNode) and `copyright`. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Dark footer bg-slate-900 text-slate-400. Top region: responsive grid (1 col mobile, 2-4 cols md) of link columns with white titles. Bottom bar: brand + copyright left, social icons right, separated by a top border border-slate-800.</constraint>
+  </node>
+
+  <node id="breadcrumb" type="ui-component" flow="navigation">
+    <meta><path>components/ui/navigation/Breadcrumb.tsx</path></meta>
+    <constraint verify="static">Export default React component `Breadcrumb` accepting `items` (array of {label,href?}). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Horizontal inline list of links separated by a chevron (›). text-sm text-slate-500; last item (current) is text-slate-900 font-medium with no href. Wrap on small screens.</constraint>
+  </node>
+
+  <node id="tabs" type="ui-component" flow="navigation">
+    <meta><path>components/ui/navigation/Tabs.tsx</path></meta>
+    <constraint verify="static">Export default React component `Tabs` accepting `tabs` (array of {id,label}), `active` (id) and `onChange`. Tailwind only, controlled or uncontrolled.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Horizontal tab strip with an animated bottom border indicator. Inactive: text-slate-500 hover:text-slate-800; active: text-indigo-600 border-b-2 border-indigo-600. Should support keyboard arrow navigation and be accessible (role=tablist/tab).</constraint>
+  </node>
+
+  <node id="pagination" type="ui-component" flow="navigation">
+    <meta><path>components/ui/navigation/Pagination.tsx</path></meta>
+    <constraint verify="static">Export default React component `Pagination` accepting `page`, `pageCount`, `onChange`. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Centered row of square buttons rounded-md, page numbers + prev/next chevrons. Current page: bg-indigo-600 text-white. Others: bg-white border border-slate-200 text-slate-600 hover:bg-slate-50. Truncate long ranges with an ellipsis.</constraint>
+  </node>
+
+  <node id="mobileMenu" type="ui-component" flow="navigation">
+    <meta><path>components/ui/navigation/MobileMenu.tsx</path></meta>
+    <constraint verify="static">Export default React component `MobileMenu` accepting `open`, `onClose`, `links`, `actions`. Tailwind only, slide-in overlay.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Full-height right drawer with a semi-transparent backdrop (bg-black/40) that closes on click. Panel bg-white w-72 p-4 with stacked links text-lg and a close X button. Slide transition translate-x. Lock body scroll while open.</constraint>
+  </node>
+
+  <node id="megaMenu" type="ui-component" flow="navigation">
+    <meta><path>components/ui/navigation/MegaMenu.tsx</path></meta>
+    <constraint verify="static">Export default React component `MegaMenu` accepting `items` ({label,columns:[{heading,links:[{label,href,description?}]}],feature?}) rendered by the Navbar on hover/click. Tailwind only, accessible.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Wide dropdown panel (bg-white rounded-xl shadow-xl border) appearing under the active nav item: 2-4 columns of link groups with headings (text-xs uppercase text-slate-400), each link title + optional description; optional right feature card (image + CTA). Hover/focus open, Esc/outside close, keyboard navigable.</constraint>
+  </node>
+
+  <node id="languageSwitcher" type="ui-component" flow="navigation">
+    <meta><path>components/ui/navigation/LanguageSwitcher.tsx</path></meta>
+    <constraint verify="static">Export default React component `LanguageSwitcher` accepting `languages` ({code,label,flag?}), `value`, `onChange`, rendered as a globe button + menu or inline pills. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Globe icon button opening a DropdownMenu of languages (flag emoji + native label, current check-marked); alternative `variant="pills"` shows inline language chips. Compact, sits in Navbar/footer. Respects RTL when switched.</constraint>
+  </node>
+
+  <node id="cookieConsent" type="ui-component" flow="navigation">
+    <meta><path>components/ui/navigation/CookieConsent.tsx</path></meta>
+    <constraint verify="static">Export default React component `CookieConsent` accepting `onAccept`, `onReject`, `onCustomize?`. Bottom banner, dismiss persisted to localStorage. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Fixed bottom-4 inset-x-4 (or bottom banner full-width) Card bg-white shadow-2xl rounded-xl p-4 flex flex-col sm:flex-row gap-3 items-center: short policy text (link to privacy), "Reject" (ghost) + "Accept all" (primary indigo) + optional "Customize" (secondary). Slide-up entrance.</constraint>
+  </node>
+
+  <node id="backToTop" type="ui-component" flow="navigation">
+    <meta><path>components/ui/navigation/BackToTop.tsx</path></meta>
+    <constraint verify="static">Export default React component `BackToTop` accepting `threshold?` (px, default 300) and `label?`. Appears after scrolling, smooth-scrolls to top. Tailwind only, aria-label.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Fixed bottom-right circular button (bg-indigo-600 text-white shadow-lg rounded-full p-3, up-arrow svg) that fades/scales in once the page passes threshold and hides on top. Respect prefers-reduced-motion (instant jump).</constraint>
+  </node>
+
+</project>

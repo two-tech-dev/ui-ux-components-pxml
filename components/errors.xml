@@ -1,0 +1,40 @@
+<project name="uix-errors" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- STATUS / ERROR / UTILITY PAGES                               -->
+  <!-- System pages every production site needs.                    -->
+  <!-- ============================================================= -->
+
+  <node id="notFound" type="ui-component" flow="errors">
+    <meta><path>components/ui/errors/NotFound.tsx</path></meta>
+    <constraint verify="static">Export default React component `NotFound` accepting `code?` (default 404), `title?`, `message?`, `homeHref?`. Centered, friendly. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Full-height grid place-items-center bg-slate-50 text-center: big display number (text-6xl md:text-8xl font-black text-indigo-600), title "Page not found", message text-slate-500, primary Button "Back home" + secondary "Contact support". Optional playful illustration. Links use next/link.</constraint>
+  </node>
+
+  <node id="errorPage" type="ui-component" flow="errors">
+    <meta><path>components/ui/errors/ErrorPage.tsx</path></meta>
+    <constraint verify="static">Export default React component `ErrorPage` accepting `code?` (default 500), `title?`, `message?`, `onRetry?`. Server-error state. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Similar shell to NotFound but red/amber accent (text-rose-600), title "Something went wrong", message "We're already looking into it.", primary "Try again" Button calling onRetry + a "Go home" link. Keep it calm, avoid technical jargon.</constraint>
+  </node>
+
+  <node id="maintenance" type="ui-component" flow="errors">
+    <meta><path>components/ui/errors/Maintenance.tsx</path></meta>
+    <constraint verify="static">Export default React component `Maintenance` accepting `title?`, `message?`, `eta?`, `onNotify?`. Planned-downtime state. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Centered bg-slate-900 text-white: wrench/gear glyph, title "Under maintenance", message + optional "Back at {eta}". Optional email Field + "Notify me" Button (amber accent). Reassuring, on-brand dark panel.</constraint>
+  </node>
+
+  <node id="searchResults" type="ui-component" flow="errors">
+    <meta><path>components/ui/errors/SearchResults.tsx</path></meta>
+    <constraint verify="static">Export default React component `SearchResults` accepting `query`, `results` ({type,title,snippet,href}[]), `filters?` and `onFilter`. Search engine results page. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Top SearchBar showing query; left optional facet filters (Checkbox/Select), right results list: each row has type Badge, title link (indigo hover) + breadcrumb url + snippet with query highlighted (bg-yellow-100). Pagination at bottom. Empty state when no matches. Used by site search & docs search.</constraint>
+  </node>
+
+  <node id="comingSoon" type="ui-component" flow="errors">
+    <meta><path>components/ui/errors/ComingSoon.tsx</path></meta>
+    <constraint verify="static">Export default React component `ComingSoon` accepting `title?`, `message?`, `launchDate?`, `onNotify?`. Pre-launch capture. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Centered hero: brand mark, big title, subtitle, optional Countdown to launchDate, email Field + "Notify me" Button (indigo). Social icon row. Minimal, high-contrast, builds anticipation. Great for landing pre-signup.</constraint>
+  </node>
+
+</project>

@@ -1,0 +1,63 @@
+<project name="uix-content" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- CONTENT / EDITORIAL                                          -->
+  <!-- ============================================================= -->
+
+  <node id="blogList" type="ui-component" flow="content">
+    <meta><path>components/ui/content/BlogList.tsx</path></meta>
+    <constraint verify="static">Export default React component `BlogList` accepting `posts` (array of {slug,title,excerpt,cover?,author?,date?,tag?}) rendering a responsive Grid of ArticleCard + optional Pagination. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Page with a heading + optional SearchBar/filter row, then a responsive Grid (1/2/3 cols) of ArticleCard, gap-8. Wrap in Container. Footer Pagination when pageCount>1. Comfortable vertical rhythm, light bg.</constraint>
+  </node>
+
+  <node id="articleCard" type="ui-component" flow="content">
+    <meta><path>components/ui/content/ArticleCard.tsx</path></meta>
+    <constraint verify="static">Export default React component `ArticleCard` accepting `post` ({slug,title,excerpt,cover?,author?,date?,tag?}), linking to /blog/{slug}. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card with cover image top (aspect-[16/9] object-cover), body p-5: tag pill (bg-indigo-50 text-indigo-600 text-xs), title font-semibold text-slate-900 line-clamp-2 hover:text-indigo-600, excerpt text-slate-500 line-clamp-2, footer meta row (avatar/initials + author + date) text-xs text-slate-400. Hover shadow lift.</constraint>
+  </node>
+
+  <node id="blogPost" type="ui-component" flow="content">
+    <meta><path>components/ui/content/BlogPost.tsx</path></meta>
+    <constraint verify="static">Export default React component `BlogPost` accepting `post` ({title,cover?,author,date,readingTime?,content}) rendering an article layout with prose + TableOfContents + author bio. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Centered reading column max-w-3xl (prose prose-slate). Cover hero (full-width or rounded-2xl), title text-4xl font-extrabold, meta row (avatar + author + date + reading time), TOC sticky on lg (right rail) listing h2s. Body prose with comfortable leading. Footer author bio Card. Share row. Reading-progress bar at top optional.</constraint>
+  </node>
+
+  <node id="gallery" type="ui-component" flow="content">
+    <meta><path>components/ui/content/Gallery.tsx</path></meta>
+    <constraint verify="static">Export default React component `Gallery` accepting `images` (array of {src,alt?,caption?}) with a lightbox on click. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Masonry-ish responsive grid of thumbnails (object-cover, hover zoom + overlay). Click opens a Modal lightbox: large image centered, caption below, prev/next arrows, Esc/backdrop close, counter "3 / 12". Keyboard arrow nav. Loading shimmer.</constraint>
+  </node>
+
+  <node id="carousel" type="ui-component" flow="content">
+    <meta><path>components/ui/content/Carousel.tsx</path></meta>
+    <constraint verify="static">Export default React component `Carousel` accepting `slides` (array of {image?,content?}), `autoPlay?` and `interval?`. Tailwind only, accessible (aria-roledescription).</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Full-width slider with snap-x scroll (or transform track), prev/next chevrons (absolute, circle bg-white/80), dot indicators bottom-center (active=bg-white scale-125). Auto-play with pause on hover, respects reduced-motion. Each slide rounded-2xl overflow-hidden, optional caption overlay gradient bottom.</constraint>
+  </node>
+
+  <node id="codeBlock" type="ui-component" flow="content">
+    <meta><path>components/ui/content/CodeBlock.tsx</path></meta>
+    <constraint verify="static">Export default React component `CodeBlock` accepting `code`, `language?`, `filename?`, `showLineNumbers?`. Syntax-highlighted, copy button. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Rounded-xl bg-slate-950 text-slate-100 overflow-hidden: optional filename tab bar, scrollable <pre> with monospace, line numbers in slate-600, a copy button (top-right, Kbd hint) that flashes "Copied". Works inside DocsLayout/BlogPost. Token colors via a lightweight highlighter.</constraint>
+  </node>
+
+  <node id="tableOfContents" type="ui-component" flow="content">
+    <meta><path>components/ui/content/TableOfContents.tsx</path></meta>
+    <constraint verify="static">Export default React component `TableOfContents` accepting `headings` ({id,text,level}) with scrollspy highlighting the active section. Tailwind only, sticky.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Nested list of links (text-sm text-slate-500, h3 indented), active item text-indigo-600 font-medium with a left indigo border; auto-updates on scroll (IntersectionObserver). Used by BlogPost and DocsLayout right rail.</constraint>
+  </node>
+
+  <node id="audioPlayer" type="ui-component" flow="content">
+    <meta><path>components/ui/content/AudioPlayer.tsx</path></meta>
+    <constraint verify="static">Export default React component `AudioPlayer` accepting `src`, `title?`, `artwork?`, `speed?`. Play/pause, seek, speed, waveform optional. Tailwind only, accessible.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Compact bar: artwork thumb + title, seek Progress, transport (skip-back, play/pause indigo circle, skip-fwd), speed (1x/1.5x/2x), time labels. Optional simple waveform placeholder. Shares transport styling with PodcastPlayer.</constraint>
+  </node>
+
+  <node id="newsCard" type="ui-component" flow="content">
+    <meta><path>components/ui/content/NewsCard.tsx</path></meta>
+    <constraint verify="static">Export default React component `NewsCard` accepting `article` ({slug,headline,summary,image?,section?,author,time,breaking?}) for news/magazine grids. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Magazine layout: large "lead" Card (big image + headline + standfirst) and smaller secondary Cards (thumbnail left, headline right). Section Badge (e.g. "Tech") + byline + relative time; "Breaking" shows red Badge. Ideal for news portals & magazines.</constraint>
+  </node>
+
+</project>

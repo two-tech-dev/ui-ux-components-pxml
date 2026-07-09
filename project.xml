@@ -1,0 +1,36 @@
+<project name="ui-ux-components" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- ui-ux-components                                              -->
+  <!-- A pxml UI/UX component library for AI-compiled web projects.  -->
+  <!-- Every <node> below is a reusable BASE component. To use one,  -->
+  <!-- extend it from your project and (optionally) attach a prompt  -->
+  <!-- via a <constraint verify="llm-judge"> to restyle it.           -->
+  <!--                                                              -->
+  <!-- Full import:  <import package="ui-ux-components"             -->
+  <!--                       from="packages/ui-ux-components"       -->
+  <!--                       as="uix" />  ->  uix:auth:login         -->
+  <!-- Selective:     <import src="packages/ui-ux-components/       -->
+  <!--                       components/auth.xml" as="uix-auth" />  -> uix-auth:login -->
+  <!-- ============================================================= -->
+
+  <import src="./components/layout.xml"     as="layout" />
+  <import src="./components/navigation.xml" as="navigation" />
+  <import src="./components/auth.xml"       as="auth" />
+  <import src="./components/marketing.xml"  as="marketing" />
+  <import src="./components/ecommerce.xml"  as="ecommerce" />
+  <import src="./components/dashboard.xml"  as="dashboard" />
+  <import src="./components/forms.xml"      as="forms" />
+  <import src="./components/feedback.xml"   as="feedback" />
+  <import src="./components/content.xml"    as="content" />
+  <import src="./components/social.xml"     as="social" />
+
+  <import src="./components/inputs.xml"     as="inputs" />
+  <import src="./components/primitives.xml" as="primitives" />
+  <import src="./components/booking.xml"    as="booking" />
+  <import src="./components/industry.xml"   as="industry" />
+  <import src="./components/errors.xml"     as="errors" />
+
+</project>

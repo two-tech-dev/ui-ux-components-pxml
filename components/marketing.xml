@@ -1,0 +1,63 @@
+<project name="uix-marketing" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- MARKETING / LANDING PAGE SECTIONS                             -->
+  <!-- ============================================================= -->
+
+  <node id="hero" type="ui-component" flow="marketing">
+    <meta><path>components/ui/marketing/Hero.tsx</path></meta>
+    <constraint verify="static">Export default React component `Hero` accepting `eyebrow`, `title`, `subtitle`, `primaryCta`, `secondaryCta` ({label,href}) and optional `media` (ReactNode). Tailwind only, above-the-fold.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Two-column on lg (text left, media right), stacked on mobile. Light gradient background (bg-gradient-to-b from-indigo-50 to-white). Eyebrow pill (bg-indigo-100 text-indigo-700 rounded-full px-3 py-1 text-sm). Title text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900. Subtitle text-lg text-slate-600 max-w-xl. Two CTAs using Button (primary + secondary). Media area rounded-2xl shadow-xl with placeholder.</constraint>
+  </node>
+
+  <node id="features" type="ui-component" flow="marketing">
+    <meta><path>components/ui/marketing/Features.tsx</path></meta>
+    <constraint verify="static">Export default React component `Features` accepting `title`, `subtitle` and `items` (array of {icon,title,description}). Renders inside a Section using a Grid. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Section with centered heading. 3-column responsive Grid (1 col mobile, 3 col lg) of Cards. Each Card: icon in a rounded-xl bg-indigo-50 text-indigo-600 p-3 (w-fit), title font-semibold text-slate-900, description text-slate-600. Generous gaps. Hover lift on cards.</constraint>
+  </node>
+
+  <node id="pricing" type="ui-component" flow="marketing">
+    <meta><path>components/ui/marketing/Pricing.tsx</path></meta>
+    <constraint verify="static">Export default React component `Pricing` accepting `title`, `plans` (array of {name,price,period,features[],cta,highlighted}) . Tailwind only, responsive grid.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] 3 plan Cards in a centered responsive Grid. Highlighted plan: ring-2 ring-indigo-500 scale-105 (lg) with a "Most popular" badge (bg-indigo-600 text-white). Each plan: name text-lg, price text-4xl font-bold with /mo subtext, feature list with check icons (text-emerald-500), CTA Button (primary on highlighted, secondary otherwise). Equal heights.</constraint>
+  </node>
+
+  <node id="testimonials" type="ui-component" flow="marketing">
+    <meta><path>components/ui/marketing/Testimonials.tsx</path></meta>
+    <constraint verify="static">Export default React component `Testimonials` accepting `title` and `items` (array of {quote,author,role,avatar?}). Tailwind only, Grid layout.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Section with heading. Responsive Grid (1/2/3 cols) of quote Cards: large leading quote mark text-indigo-200, italic quote text-slate-700, footer with avatar (rounded-full) + author font-semibold + role text-slate-500. Soft bg-slate-50 section.</constraint>
+  </node>
+
+  <node id="faq" type="ui-component" flow="marketing">
+    <meta><path>components/ui/marketing/Faq.tsx</path></meta>
+    <constraint verify="static">Export default React component `Faq` accepting `title` and `items` (array of {question,answer}). Accordion behavior, only one open at a time. Tailwind only, accessible (button + region).</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Centered max-w-3xl list. Each row: full-width button with question (font-medium text-slate-900) + chevron that rotates when open, answer revealed with smooth max-height/opacity transition, border-b border-slate-200 between items. No default open item.</constraint>
+  </node>
+
+  <node id="cta" type="ui-component" flow="marketing">
+    <meta><path>components/ui/marketing/Cta.tsx</path></meta>
+    <constraint verify="static">Export default React component `Cta` accepting `title`, `subtitle`, `button` ({label,href}) and optional `secondaryButton`. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Full-width band bg-indigo-600 text-white rounded-3xl px-8 py-16 text-center (inside a Container). Title text-3xl font-bold, subtitle text-indigo-100 max-w-2xl mx-auto. White solid primary button (bg-white text-indigo-700 hover:bg-indigo-50) + optional outlined secondary (border-white text-white).</constraint>
+  </node>
+
+  <node id="stats" type="ui-component" flow="marketing">
+    <meta><path>components/ui/marketing/Stats.tsx</path></meta>
+    <constraint verify="static">Export default React component `Stats` accepting `items` (array of {value,label}). Tailwind only, 4-up on desktop.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Row of 4 stat blocks (2 cols mobile, 4 cols md) separated by dividers. Big value text-4xl font-extrabold text-indigo-600, label below text-slate-500 uppercase tracking-wide text-sm. Centered within a Section with muted background.</constraint>
+  </node>
+
+  <node id="logoCloud" type="ui-component" flow="marketing">
+    <meta><path>components/ui/marketing/LogoCloud.tsx</path></meta>
+    <constraint verify="static">Export default React component `LogoCloud` accepting `title` and `logos` (array of {name,src?}). Tailwind only, grayscale row.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Small centered eyebrow title ("Trusted by teams at"). Horizontal wrap of logo placeholders (text-slate-400 font-semibold, or img with grayscale opacity-60 hover:opacity-100 transition). Evenly spaced, max-w container.</constraint>
+  </node>
+
+  <node id="newsletter" type="ui-component" flow="marketing">
+    <meta><path>components/ui/marketing/Newsletter.tsx</path></meta>
+    <constraint verify="static">Export default React component `Newsletter` accepting `title`, `subtitle` and `placeholder`. Email field + subscribe button, success state after submit. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Compact card or band: heading + one-line subtitle, then an inline form (email input flex-1 rounded-l-lg border, button rounded-r-lg bg-indigo-600 text-white) on md+, stacked on mobile. On submit show "Thanks for subscribing!" success text. Accessible label.</constraint>
+  </node>
+
+</project>

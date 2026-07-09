@@ -1,0 +1,39 @@
+<project name="uix-feedback" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- FEEDBACK / OVERLAYS                                           -->
+  <!-- ============================================================= -->
+
+  <node id="modal" type="ui-component" flow="feedback">
+    <meta><path>components/ui/feedback/Modal.tsx</path></meta>
+    <constraint verify="static">Export default React component `Modal` accepting `open`, `onClose`, `title?`, `children` and `footer?`. Centered dialog with backdrop, closes on Esc/backdrop click, focus trap. Tailwind only, accessible (role=dialog aria-modal).</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Fixed inset-0 z-50 grid place-items-center p-4. Backdrop bg-black/50 backdrop-blur-sm. Panel bg-white rounded-2xl shadow-xl max-w-lg w-full p-6: header row with title font-semibold + close X, scrollable body, footer right-aligned buttons. Scale+fade in. Lock body scroll while open. Respect reduced-motion.</constraint>
+  </node>
+
+  <node id="toast" type="ui-component" flow="feedback">
+    <meta><path>components/ui/feedback/Toast.tsx</path></meta>
+    <constraint verify="static">Export default React component `Toast` (provider + useToast hook) accepting `variant` ('success'|'error'|'info'|'warning'), `title`, `description?`, auto-dismiss. Stacked bottom-right. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Fixed bottom-right z-[60] stack of pills: bg-white rounded-xl shadow-lg border-l-4 (success=emerald, error=red, info=indigo, warning=amber) px-4 py-3, icon + title font-medium + description text-sm text-slate-500, auto-dismiss after 4s with progress bar, slide-in from right, manual close X. Provide a context provider so any component can fire toasts.</constraint>
+  </node>
+
+  <node id="alert" type="ui-component" flow="feedback">
+    <meta><path>components/ui/feedback/Alert.tsx</path></meta>
+    <constraint verify="static">Export default React component `Alert` accepting `variant` ('info'|'success'|'warning'|'error'), `title?`, `children` and `dismissible?`. Tailwind only, inline banner.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Rounded-lg border-l-4 p-4 flex gap-3: info=bg-blue-50 border-blue-500 text-blue-800, success=emerald, warning=amber, error=red. Left icon, title font-semibold + body text-sm. Dismissible variant shows X that collapses it. Used inline within pages/forms, not floating.</constraint>
+  </node>
+
+  <node id="tooltip" type="ui-component" flow="feedback">
+    <meta><path>components/ui/feedback/Tooltip.tsx</path></meta>
+    <constraint verify="static">Export default React component `Tooltip` accepting `content` (ReactNode) and `children`, showing on hover/focus, positioned above by default. Tailwind only, accessible (aria-describedby).</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Small dark bubble (bg-slate-900 text-white text-xs rounded-md px-2 py-1 shadow) appearing above the trigger on hover/focus with a tiny arrow, fade-in. Trigger wrapped so it keeps its layout. Smart flip if near viewport edge. Respect prefers-reduced-motion.</constraint>
+  </node>
+
+  <node id="drawer" type="ui-component" flow="feedback">
+    <meta><path>components/ui/feedback/Drawer.tsx</path></meta>
+    <constraint verify="static">Export default React component `Drawer` accepting `open`, `onClose`, `side` ('left'|'right'), `title?` and `children`. Slide-in panel with backdrop. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Fixed inset-0 z-50: backdrop bg-black/40, panel w-80 (sm) / w-96 (md) h-full bg-white shadow-xl sliding from side (translate-x for right, -translate-x for left), p-5 with header (title + close X) and scrollable body. Lock body scroll, Esc to close, fade backdrop. Smooth transition.</constraint>
+  </node>
+
+</project>

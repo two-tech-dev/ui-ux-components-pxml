@@ -1,0 +1,106 @@
+<project name="uix-primitives" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- UI ATOMS & LIGHTWEIGHT OVERLAYS                              -->
+  <!-- Smallest reusable pieces referenced everywhere else.         -->
+  <!-- ============================================================= -->
+
+  <node id="badge" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/Badge.tsx</path></meta>
+    <constraint verify="static">Export default React component `Badge` accepting `variant` ('default'|'primary'|'success'|'warning'|'danger'|'outline'), `size` ('sm'|'md') and children. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium: default=bg-slate-100 text-slate-700, primary=bg-indigo-100 text-indigo-700, success=bg-emerald-100 text-emerald-700, warning=bg-amber-100 text-amber-700, danger=bg-red-100 text-red-700, outline=border border-slate-300 text-slate-600. Often shows a dot or icon.</constraint>
+  </node>
+
+  <node id="avatar" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/Avatar.tsx</path></meta>
+    <constraint verify="static">Export default React component `Avatar` accepting `src?`, `name` (for initials), `size` ('xs'|'sm'|'md'|'lg'|'xl'), `status?` ('online'|'offline'|'busy'). Falls back to initials. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Rounded-full object-cover; initials variant bg-indigo-100 text-indigo-700 font-medium grid place-items-center. Sizes xs=6 md=10 lg=12 xl=16 (h/w in tailwind units). Optional status dot bottom-right (online=emerald, busy=red, offline=slate) with white ring.</constraint>
+  </node>
+
+  <node id="progress" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/Progress.tsx</path></meta>
+    <constraint verify="static">Export default React component `Progress` accepting `value` (0-100), `variant?` ('bar'|'circle'), `label?`, `showValue?`. Tailwind only, aria-valuenow.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Bar: h-2 rounded-full bg-slate-200 with indigo fill transition-all; circle variant is an SVG ring with indigo stroke. Optional centered/right percentage in text-xs text-slate-500. Used for upload, onboarding and course progress.</constraint>
+  </node>
+
+  <node id="skeleton" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/Skeleton.tsx</path></meta>
+    <constraint verify="static">Export default React component `Skeleton` accepting `width`, `height`, `rounded?` and `className`. Animate-pulse placeholder. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] bg-slate-200 rounded-md animate-pulse block element. Compose many to mimic a loading card/list (avatar circle + 2 text lines). Respect prefers-reduced-motion by disabling pulse.</constraint>
+  </node>
+
+  <node id="spinner" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/Spinner.tsx</path></meta>
+    <constraint verify="static">Export default React component `Spinner` accepting `size` ('sm'|'md'|'lg'), `variant` ('border'|'dots'|'grow') and `label?`. aria-busy, aria-label. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Border variant: w-/h- sized rounded-full border-2 border-slate-300 border-t-indigo-600 animate-spin. Dots: three bouncing dots in indigo. Grow: pulsing circle. Centered, with optional sr-only or visible label "Loading…".</constraint>
+  </node>
+
+  <node id="emptyState" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/EmptyState.tsx</path></meta>
+    <constraint verify="static">Export default React component `EmptyState` accepting `icon?`, `title`, `description?`, `action?` (ReactNode). Centered, friendly. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Centered column max-w-sm py-16: muted illustration/icon (text-slate-300 text-5xl or svg), title font-semibold text-slate-700, description text-sm text-slate-500, primary action Button below. Used for empty carts, inboxes, search results and dashboards.</constraint>
+  </node>
+
+  <node id="accordion" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/Accordion.tsx</path></meta>
+    <constraint verify="static">Export default React component `Accordion` accepting `items` ({id,trigger,content}), `type` ('single'|'multiple') and `defaultOpen?`. Accessible (button + region, aria-expanded). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Vertical stack of rows; each trigger is a full-width flex justify-between (font-medium) with a chevron rotating on open, content reveals with height/opacity transition, divider border-slate-200 between rows. Generic primitive behind Faq — use Faq for marketing Q&A.</constraint>
+  </node>
+
+  <node id="popover" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/Popover.tsx</path></meta>
+    <constraint verify="static">Export default React component `Popover` accepting `trigger` (ReactNode) and `children`, with `side` ('top'|'bottom'|'left'|'right') and `open`/`onOpenChange`. Click/anchor positioned, outside-click close. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Floating panel bg-white rounded-xl shadow-lg border border-slate-200 p-3 z-30 with a subtle entrance scale/fade, small arrow, smart flip near viewport edge. Distinct from Tooltip (rich content, stays until dismissed).</constraint>
+  </node>
+
+  <node id="dropdownMenu" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/DropdownMenu.tsx</path></meta>
+    <constraint verify="static">Export default React component `DropdownMenu` accepting `trigger` and `items` ({label,icon?,onClick?,href?,separatorBefore?,danger?}). Keyboard nav, outside-click close. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Compact menu panel (like UserMenu/Notification internals): rounded-lg shadow-lg border border-slate-200 py-1, items px-3 py-2 text-sm text-slate-700 hover:bg-slate-100 rounded-md, danger items text-red-600, separators as border-t my-1.</constraint>
+  </node>
+
+  <node id="hoverCard" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/HoverCard.tsx</path></meta>
+    <constraint verify="static">Export default React component `HoverCard` accepting `trigger` and `content`, opening on hover with delay. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card-like popover (bg-white rounded-xl shadow-lg border p-4) appearing after ~200ms hover near the trigger — perfect for user preview (avatar+name+bio) or link preview. Dismiss on mouse leave with small grace period.</constraint>
+  </node>
+
+  <node id="contextMenu" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/ContextMenu.tsx</path></meta>
+    <constraint verify="static">Export default React component `ContextMenu` accepting `items` ({label,icon?,onClick?,separatorBefore?,danger?}) and rendering children; opens on right-click. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Menu panel positioned at the cursor on contextmenu event (preventDefault), same styling as DropdownMenu. Items disabled/greyed when not applicable. Closes on outside click / Esc / scroll.</constraint>
+  </node>
+
+  <node id="commandPalette" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/CommandPalette.tsx</path></meta>
+    <constraint verify="static">Export default React component `CommandPalette` (Cmd/Ctrl+K) accepting `groups` ({heading,items:{label,icon?,action}}), `onSearch`. Modal-style fuzzy search. Tailwind only, accessible.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Centered Modal-like dialog (top-aligned) with a search input + grouped results; arrow-key navigation, Enter triggers, Esc closes. Rows hover:bg-indigo-50, group headings text-xs uppercase text-slate-400. Used as app-wide navigation/search in dashboards and docs.</constraint>
+  </node>
+
+  <node id="kbd" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/Kbd.tsx</path></meta>
+    <constraint verify="static">Export default React component `Kbd` accepting `keys` (string|string[]) rendering keyboard key hints. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Inline rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-mono text-xs text-slate-600 shadow-sm; multiple keys joined with a + . Perfect beside CommandPalette ("⌘ K") and shortcuts.</constraint>
+  </node>
+
+  <node id="toggle" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/Toggle.tsx</path></meta>
+    <constraint verify="static">Export default React component `Toggle` accepting `pressed`, `onPressedChange`, `icon` and `ariaLabel`. Pressed/unpressed state, like a toolbar button. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Square rounded-md p-2 text-slate-600 hover:bg-slate-100, pressed:bg-indigo-100 text-indigo-700. Used in toolbars (bold/italic, view grid/list). Pairs with ToggleGroup.</constraint>
+  </node>
+
+  <node id="aspectRatio" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/AspectRatio.tsx</path></meta>
+    <constraint verify="static">Export default React component `AspectRatio` accepting `ratio` (e.g. 16/9) and `children`. CSS aspect-ratio box. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Wrapper using `aspect-ratio` (or padding-top hack) so media keeps proportions responsively; children absolutely fill. Used by video, image and card media areas.</constraint>
+  </node>
+
+  <node id="countdown" type="ui-component" flow="primitives">
+    <meta><path>components/ui/primitives/Countdown.tsx</path></meta>
+    <constraint verify="static">Export default React component `Countdown` accepting `target` (Date|timestamp) and `onComplete?`. Renders days/hours/min/sec, ticking every second. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Row of unit blocks: each a rounded-lg bg-slate-900 text-white px-3 py-2 text-center with big number (tabular-nums) + tiny label (DAYS/HRS/MIN/SEC) below; colon separators between. Used for launches, sales and event starts.</constraint>
+  </node>
+
+</project>

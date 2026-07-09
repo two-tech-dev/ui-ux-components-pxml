@@ -1,0 +1,75 @@
+<project name="uix-auth" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- AUTHENTICATION                                                -->
+  <!-- ============================================================= -->
+
+  <node id="login" type="ui-component" flow="auth">
+    <meta><path>components/ui/auth/Login.tsx</path></meta>
+    <constraint verify="static">Export default React component `Login` with email + password fields, a submit button, a "Forgot password?" link and a "Sign up" link. Controlled inputs, basic required validation, Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Centered login card on a clean light page (bg-slate-50 min-h-screen grid place-items-center). Card: bg-white rounded-2xl shadow-lg max-w-md p-8. Heading "Welcome back" (text-2xl font-bold text-slate-900). Floating-label inputs, rounded-lg border border-slate-300, focus ring-indigo-500. Primary button full-width bg-indigo-600 text-white hover:bg-indigo-700. Error states show aria-invalid + red helper text. Accessible labels and focus order.</constraint>
+  </node>
+
+  <node id="signup" type="ui-component" flow="auth">
+    <meta><path>components/ui/auth/Signup.tsx</path></meta>
+    <constraint verify="static">Export default React component `Signup` with name, email, password and confirm-password fields, a submit button and a "Sign in" link. Password match validation, Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Same card shell as Login. Heading "Create your account". Two-column grid for name/email on md+, full-width password rows. Strength meter under password (weak/medium/strong bars). Submit button full-width bg-indigo-600. Terms checkbox with link before the button. Consistent spacing and focus rings.</constraint>
+  </node>
+
+  <node id="forgotPassword" type="ui-component" flow="auth">
+    <meta><path>components/ui/auth/ForgotPassword.tsx</path></meta>
+    <constraint verify="static">Export default React component `ForgotPassword` with an email field, a submit button and a "Back to login" link. Shows a success state after submit. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Centered card (mirrors Login). Heading "Reset your password" + helper text "We'll email you a reset link". Single email input. On submit, swap to a success panel with a check icon and "Check your inbox" message. Indigo primary button.</constraint>
+  </node>
+
+  <node id="resetPassword" type="ui-component" flow="auth">
+    <meta><path>components/ui/auth/ResetPassword.tsx</path></meta>
+    <constraint verify="static">Export default React component `ResetPassword` with new-password + confirm-password fields and a submit button. Password match + min-length validation. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Centered card shell. Heading "Set a new password". Two password inputs with strength meter. On success show a confirmation panel + "Continue to login" button. Same indigo accent and focus treatment as the other auth screens for visual consistency.</constraint>
+  </node>
+
+  <node id="otpVerify" type="ui-component" flow="auth">
+    <meta><path>components/ui/auth/OtpVerify.tsx</path></meta>
+    <constraint verify="static">Export default React component `OtpVerify` rendering 6 single-character inputs, auto-advancing focus, a verify button, a resend-code timer and a "Change email" link. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Centered card. Heading "Enter the code" + subtext showing the masked email. Six square inputs (w-12 h-12 text-center text-xl rounded-lg border) with indigo focus rings, joined visually. Verify button full-width indigo. Resend link disabled with a 30s countdown then enabled.</constraint>
+  </node>
+
+  <node id="socialLogin" type="ui-component" flow="auth">
+    <meta><path>components/ui/auth/SocialLogin.tsx</path></meta>
+    <constraint verify="static">Export default React component `SocialLogin` rendering providers (Google, GitHub, Apple) as outlined buttons above a "or continue with email" divider. Each fires an onProvider(provider) callback. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Stack of full-width outlined buttons (bg-white border border-slate-300 text-slate-700 hover:bg-slate-50) each with a provider glyph on the left and label "Continue with Google/GitHub/Apple". Divider (use Divider component) reading "or". Designed to sit above the email/password form on Login/Signup.</constraint>
+  </node>
+
+  <node id="onboarding" type="ui-component" flow="auth">
+    <meta><path>components/ui/auth/Onboarding.tsx</path></meta>
+    <constraint verify="static">Export default React component `Onboarding` accepting `steps` ({title,description,fields?}), `onComplete`. Welcome + progressive profile collection. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Centered card with a top Stepper/progress, one question per screen (e.g. role, interests as selectable chips, workspace name), Back/Next buttons, "Skip" link, confetti/success on finish. Mirrors Signup inputs. Keeps first-run friction low; persists progress.</constraint>
+  </node>
+
+  <node id="profileSettings" type="ui-component" flow="auth">
+    <meta><path>components/ui/auth/ProfileSettings.tsx</path></meta>
+    <constraint verify="static">Export default React component `ProfileSettings` accepting `user` ({name,email,avatar?,bio?}) with avatar upload, name/bio fields, and tabs (Profile / Account / Notifications). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Settings shell: left tab rail (Profile/Account/Notifications/Danger) + content Card. Profile tab: Avatar with upload (FileUpload), name + bio TextArea, save Button. Account tab: email, linked providers (SocialLogin-style rows). Notifications: Switch rows. Danger zone: red-bordered "Delete account".</constraint>
+  </node>
+
+  <node id="changePassword" type="ui-component" flow="auth">
+    <meta><path>components/ui/auth/ChangePassword.tsx</path></meta>
+    <constraint verify="static">Export default React component `ChangePassword` with current + new + confirm fields, strength meter, submit. Client validation (match + min length). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card form inside ProfileSettings/Account: three password TextFields with show/hide toggles, strength meter under new, inline error if mismatch, primary "Update password" Button. Consistent indigo focus + spacing with auth screens.</constraint>
+  </node>
+
+  <node id="twoFactor" type="ui-component" flow="auth">
+    <meta><path>components/ui/auth/TwoFactor.tsx</path></meta>
+    <constraint verify="static">Export default React component `TwoFactor` accepting `secret?` (otpauth), `onEnable`, `onVerify`. Setup (QR + code) + verify flow. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Two-step Card: step 1 shows a QR code (placeholder image) + manual secret key in a Kbd, step 2 reuses OtpVerify to confirm; on success a recovery-codes panel (monospace grid, copy button). Toggle "Enable 2FA" Switch at top. Security-calm indigo styling.</constraint>
+  </node>
+
+  <node id="inviteAccept" type="ui-component" flow="auth">
+    <meta><path>components/ui/auth/InviteAccept.tsx</path></meta>
+    <constraint verify="static">Export default React component `InviteAccept` accepting `inviter`, `workspace`, `onAccept`. Accept/decline an org invite, set password if new. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card: "You've been invited to {workspace} by {inviter}" with workspace Avatar, primary "Accept invite" + ghost "Decline". If the invitee is new, reveal a create-password form (reuse Signup fields) after accepting. Friendly, trustworthy copy.</constraint>
+  </node>
+
+</project>

@@ -1,0 +1,81 @@
+<project name="uix-dashboard" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- DASHBOARD / ADMIN APP SHELL                                   -->
+  <!-- ============================================================= -->
+
+  <node id="adminLayout" type="ui-component" flow="dashboard">
+    <meta><path>components/ui/dashboard/AdminLayout.tsx</path></meta>
+    <constraint verify="static">Export default React component `AdminLayout` accepting `sidebar` (ReactNode), `topbar` (ReactNode) and `children`. Composes a fixed Sidebar + top bar + scrollable content area. Tailwind only, full-height.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] App shell: h-screen flex. Left Sidebar (fixed), main column flex-1 with sticky top bar (bg-white border-b, search + user menu slot) and a scrollable content region bg-slate-50 p-6. Responsive: Sidebar collapses to a MobileMenu drawer under md. Clean enterprise look, neutral palette with indigo accents.</constraint>
+  </node>
+
+  <node id="statCard" type="ui-component" flow="dashboard">
+    <meta><path>components/ui/dashboard/StatCard.tsx</path></meta>
+    <constraint verify="static">Export default React component `StatCard` accepting `label`, `value`, `delta` (number, %), `icon` and `sparkline?` (ReactNode). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Compact Card p-5: top row icon chip (bg-indigo-50 text-indigo-600 rounded-lg p-2) + label (text-slate-500 text-sm). Big value text-2xl font-bold text-slate-900. Delta pill below: positive=bg-emerald-50 text-emerald-600, negative=bg-red-50 text-red-600, with ▲/▼. Optional mini sparkline on the right.</constraint>
+  </node>
+
+  <node id="dataTable" type="ui-component" flow="dashboard">
+    <meta><path>components/ui/dashboard/DataTable.tsx</path></meta>
+    <constraint verify="static">Export default React component `DataTable` accepting `columns` (array of {key,header,render?}), `rows`, `onRowClick?`, `selectable?` (boolean) and `loading?`. Sortable headers, sticky header. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card-wrapped table: header row bg-slate-50 text-slate-500 text-xs uppercase tracking-wide, sticky on scroll. Cells px-4 py-3 border-b border-slate-100, hover:bg-slate-50 on rows. Sortable columns show sort arrow on click. Checkbox column when selectable. Loading: skeleton rows (animate-pulse). Empty: centered message. Right-align numeric columns.</constraint>
+  </node>
+
+  <node id="chartPanel" type="ui-component" flow="dashboard">
+    <meta><path>components/ui/dashboard/ChartPanel.tsx</path></meta>
+    <constraint verify="static">Export default React component `ChartPanel` accepting `title`, `subtitle?`, `children` (chart) and `actions?` (ReactNode, e.g. range selector). Tailwind only, neutral shell around a chart.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card with a header row: title font-semibold + optional subtitle left, actions (segmented range buttons: Day/Week/Month) right. Body p-4 holds the chart at a fixed comfortable height (h-64). No internal grid lines fighting the chart; let the chart own visuals. Consistent with StatCard accent.</constraint>
+  </node>
+
+  <node id="notification" type="ui-component" flow="dashboard">
+    <meta><path>components/ui/dashboard/Notification.tsx</path></meta>
+    <constraint verify="static">Export default React component `Notification` accepting `items` (array of {title,body,time,read?}) rendering a dropdown panel. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Bell button (with unread dot) toggling a right-aligned dropdown panel w-80: header "Notifications" + "Mark all read", scrollable list of items (unread = bg-indigo-50 + dot, read = bg-white), title font-medium, body text-sm text-slate-500, time text-xs. Close on outside click. Fade/scale transition.</constraint>
+  </node>
+
+  <node id="userMenu" type="ui-component" flow="dashboard">
+    <meta><path>components/ui/dashboard/UserMenu.tsx</path></meta>
+    <constraint verify="static">Export default React component `UserMenu` accepting `user` ({name,email,avatar?}) and `items` (array of {label,href?,onClick?}). Avatar dropdown. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Avatar button (rounded-full w-9 h-9) toggling a right dropdown w-56: header with avatar + name + email (truncate), divider, menu items (hover:bg-slate-100 rounded-md px-3 py-2), danger item (text-red-600) at bottom (e.g. Sign out). Outside-click close, scale-in transition.</constraint>
+  </node>
+
+  <node id="calendar" type="ui-component" flow="dashboard">
+    <meta><path>components/ui/dashboard/Calendar.tsx</path></meta>
+    <constraint verify="static">Export default React component `Calendar` accepting `events` ({id,title,start,end,color?}), `view` ('month'|'week'|'day'), `onSelect`. Month/week grid with event chips. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Toolbar (prev/next, today, view switch) + month grid: cells bg-white border, today ring-1 ring-indigo-400, event chips rounded bg-indigo-100 text-indigo-700 truncate (color overrides). Week/day shows time rows (hour labels, positioned events). Click event opens detail; click empty cell creates. Clean enterprise calendar.</constraint>
+  </node>
+
+  <node id="kanban" type="ui-component" flow="dashboard">
+    <meta><path>components/ui/dashboard/Kanban.tsx</path></meta>
+    <constraint verify="static">Export default React component `Kanban` accepting `columns` ({id,title,cards:[{id,title,tag?,assignee?}]}), `onMove`. Drag-and-drop board (keyboard accessible fallback). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Horizontal scroll of column Cards (bg-slate-100 rounded-xl p-3): column header with count, draggable task Cards (bg-white rounded-lg shadow-sm p-3, title + tag Badge + assignee Avatar), drop targets highlight indigo. Add-card button per column. Used by project management apps.</constraint>
+  </node>
+
+  <node id="messages" type="ui-component" flow="dashboard">
+    <meta><path>components/ui/dashboard/Messages.tsx</path></meta>
+    <constraint verify="static">Export default React component `Messages` accepting `conversations` ({id,user,lastMessage,time,unread?}), `activeId`, `thread` ({messages:[{from,body,time}]}), `onSend`. Inbox + chat pane. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Two-pane: left conversation list (Avatar + name + last message truncate + unread Badge, active bg-indigo-50), right chat thread (bubbles: mine indigo right-aligned, theirs white left, timestamps), composer at bottom (TextField + send). Responsive: list becomes a Drawer on mobile.</constraint>
+  </node>
+
+  <node id="activityLog" type="ui-component" flow="dashboard">
+    <meta><path>components/ui/dashboard/ActivityLog.tsx</path></meta>
+    <constraint verify="static">Export default React component `ActivityLog` accepting `events` ({actor,action,target,time,icon?}) with filter by type + infinite scroll. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Vertical Timeline of rows: Avatar/icon + "Actor action target" (actor bold) + relative time (text-slate-400), icon tinted by type (create=emerald, update=indigo, delete=red). Filter chips at top. Dense, scannable audit/history feed.</constraint>
+  </node>
+
+  <node id="settingsPage" type="ui-component" flow="dashboard">
+    <meta><path>components/ui/dashboard/SettingsPage.tsx</path></meta>
+    <constraint verify="static">Export default React component `SettingsPage` accepting `sections` ({id,label,icon?}) + routed content, with a left settings nav. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] App-shell settings: left rail of section links (icon + label, active text-indigo-600 bg-indigo-50 rounded), right content Cards grouped by sub-heading. Save bar (sticky bottom, "Discard"/"Save" buttons) optional. Consistent with AdminLayout. Used for workspace/app config.</constraint>
+  </node>
+
+  <node id="filterBar" type="ui-component" flow="dashboard">
+    <meta><path>components/ui/dashboard/FilterBar.tsx</path></meta>
+    <constraint verify="static">Export default React component `FilterBar` accepting `search?`, `filters` (Select/DateRange), `onChange`, `actions?`. Compact toolbar above tables/lists. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Flex-wrap row: SearchBar (grow), Select dropdowns (status/owner), DateRangePicker, active-filter chips with x, right-aligned action buttons (e.g. "Export"). Sticky under the top bar. Keeps DataGrids powerful but tidy.</constraint>
+  </node>
+
+</project>

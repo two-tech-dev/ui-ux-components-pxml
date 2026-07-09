@@ -1,0 +1,88 @@
+<project name="uix-inputs" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- FORM PRIMITIVES (input controls)                             -->
+  <!-- Low-level controls composed by forms & auth screens.         -->
+  <!-- ============================================================= -->
+
+  <node id="textField" type="ui-component" flow="inputs">
+    <meta><path>components/ui/inputs/TextField.tsx</path></meta>
+    <constraint verify="static">Export default React component `TextField` (forwardRef) accepting `label`, `type`, `error?`, `hint?`, `leftIcon?`, `rightSlot?` and all native input props. Tailwind only, accessible (label htmlFor, aria-invalid, aria-describedby).</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Label text-sm font-medium text-slate-700 above the control. Input: w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500. Error: border-red-500 + red helper text below. Optional leftIcon inset, rightSlot (e.g. clear button). Disabled: bg-slate-100.</constraint>
+  </node>
+
+  <node id="textArea" type="ui-component" flow="inputs">
+    <meta><path>components/ui/inputs/TextArea.tsx</path></meta>
+    <constraint verify="static">Export default React component `TextArea` (forwardRef) accepting `label`, `rows`, `error?`, `hint?`, `resize?` and native textarea props. Tailwind only, accessible.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Same label/error treatment as TextField. Textarea: w-full rounded-lg border border-slate-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500, resize-y (or none via prop). Character counter in the corner when maxLength set.</constraint>
+  </node>
+
+  <node id="select" type="ui-component" flow="inputs">
+    <meta><path>components/ui/inputs/Select.tsx</path></meta>
+    <constraint verify="static">Export default React component `Select` accepting `label`, `options` ({value,label,icon?}), `value`, `onChange`, `multiple?`, `error?`. Custom listbox (not native) with keyboard nav, or accessible native select fallback. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Trigger: same shell as TextField with a chevron on the right. Open panel: absolute bg-white rounded-lg shadow-lg border border-slate-200 mt-1 py-1 max-h-60 overflow-auto z-20; options hover:bg-indigo-50, selected: text-indigo-600 + check. Multiple mode shows chips. Focus ring indigo.</constraint>
+  </node>
+
+  <node id="checkbox" type="ui-component" flow="inputs">
+    <meta><path>components/ui/inputs/Checkbox.tsx</path></meta>
+    <constraint verify="static">Export default React component `Checkbox` accepting `label`, `checked`, `onChange`, `indeterminate?` and native props. Accessible (role=checkbox, aria-checked). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Square w-4 h-4 rounded border border-slate-300 bg-white checked:bg-indigo-600 border-indigo-600 with a white check svg, indeterminate shows a dash. Label text-sm text-slate-700 ml-2, clickable row. Smooth transition.</constraint>
+  </node>
+
+  <node id="radioGroup" type="ui-component" flow="inputs">
+    <meta><path>components/ui/inputs/RadioGroup.tsx</path></meta>
+    <constraint verify="static">Export default React component `RadioGroup` accepting `label`, `options` ({value,label,description?}), `value`, `onChange`. Accessible radiogroup. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Stack (or horizontal via `inline` prop) of circular w-4 h-4 controls border-slate-300 checked:dot bg-indigo-600, label ml-2. When description present, render as selectable Cards (border, selected ring-2 ring-indigo-500, hover:bg-slate-50).</constraint>
+  </node>
+
+  <node id="switch" type="ui-component" flow="inputs">
+    <meta><path>components/ui/inputs/Switch.tsx</path></meta>
+    <constraint verify="static">Export default React component `Switch` accepting `label?`, `checked`, `onChange` and native props. role=switch, aria-checked. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Track w-11 h-6 rounded-full bg-slate-300 transition-colors checked:bg-indigo-600 with a knob (h-5 w-5 bg-white rounded-full) translate-x-5 when on, translate-x-1 off, smooth. Optional right label text-sm. Focus ring indigo.</constraint>
+  </node>
+
+  <node id="slider" type="ui-component" flow="inputs">
+    <meta><path>components/ui/inputs/Slider.tsx</path></meta>
+    <constraint verify="static">Export default React component `Slider` accepting `min`, `max`, `step`, `value` (number|number[]), `onChange`, `label?`. Single or range. Tailwind only, keyboard accessible.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Horizontal track h-1.5 rounded-full bg-slate-200 with indigo filled portion; thumb w-4 h-4 rounded-full bg-white border-2 border-indigo-600 shadow hover:scale-110, focus ring. Range mode shows two thumbs. Show value bubble above thumb while dragging.</constraint>
+  </node>
+
+  <node id="datePicker" type="ui-component" flow="inputs">
+    <meta><path>components/ui/inputs/DatePicker.tsx</path></meta>
+    <constraint verify="static">Export default React component `DatePicker` accepting `label`, `value` (Date|string), `onChange`, `min?`, `max?`. Calendar popover, keyboard nav, no external date lib required. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Trigger mirrors TextField showing formatted date + calendar icon. Popover: month header with ‹ ›, weekday row, grid of day buttons (hover:bg-slate-100, selected bg-indigo-600 text-white rounded-md, today ring-1 ring-indigo-400, out-of-month text-slate-300). Disabled dates muted.</constraint>
+  </node>
+
+  <node id="combobox" type="ui-component" flow="inputs">
+    <meta><path>components/ui/inputs/Combobox.tsx</path></meta>
+    <constraint verify="static">Export default React component `Combobox` accepting `label`, `options` ({value,label}), `value`, `onChange`, `onSearch?`, async-friendly. Text input + filterable dropdown, keyboard nav. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] TextField-like input with a chevron; typing filters the list. Panel shows matching options (hover:bg-indigo-50, selected check), empty state "No results". Highlight matched substring. Used for country, tag and user pickers.</constraint>
+  </node>
+
+  <node id="inputGroup" type="ui-component" flow="inputs">
+    <meta><path>components/ui/inputs/InputGroup.tsx</path></meta>
+    <constraint verify="static">Export default React component `InputGroup` accepting `children` (addons + input) that fuses addons seamlessly to the input edges. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Flex row where addons (text/icon/button) sit flush against the input: addons bg-slate-100 border border-slate-300 text-slate-500 px-3, removing adjacent borders/radii so the whole control reads as one pill. Commonly used for currency, @handle, or search-with-button.</constraint>
+  </node>
+
+  <node id="rating" type="ui-component" flow="inputs">
+    <meta><path>components/ui/inputs/Rating.tsx</path></meta>
+    <constraint verify="static">Export default React component `Rating` accepting `value`, `onChange?`, `max` (default 5), `size?`, `readOnly?`. Star (or heart) input, half-star capable, keyboard accessible. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Row of star svgs (text-slate-300 empty, text-amber-400 filled), hover previews the hovered value, read-only shows static fill + numeric label (e.g. "4.5"). Interactive mode supports half stars on click-drag. Smooth color transition.</constraint>
+  </node>
+
+  <node id="tagInput" type="ui-component" flow="inputs">
+    <meta><path>components/ui/inputs/TagInput.tsx</path></meta>
+    <constraint verify="static">Export default React component `TagInput` accepting `value` (string[]), `onChange`, `placeholder?`, `suggestions?`. Type + Enter/comma to add, Backspace to remove last, x on chip. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] TextField-like box that wraps entered values as rounded-full bg-slate-100 text-slate-700 px-2 py-0.5 text-sm chips with an x button; input grows inline. Suggestions dropdown (optional) styled like Combobox. Used for skills, topics, emails.</constraint>
+  </node>
+
+  <node id="colorPicker" type="ui-component" flow="inputs">
+    <meta><path>components/ui/inputs/ColorPicker.tsx</path></meta>
+    <constraint verify="static">Export default React component `ColorPicker` accepting `value` (hex), `onChange`. Swatch button opening a native/compact picker with hex input. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Rounded swatch (w-8 h-8 ring-1 ring-slate-200) showing current color; popover with a saturation/value square + hue slider (or the native <input type=color>) plus a hex text field with validation. Used in theming and design tools.</constraint>
+  </node>
+
+</project>

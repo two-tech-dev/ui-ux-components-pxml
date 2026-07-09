@@ -1,0 +1,165 @@
+<project name="uix-industry" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- INDUSTRY / VERTICAL SECTIONS & PAGES                         -->
+  <!-- Genre-specific building blocks for common website types.     -->
+  <!-- ============================================================= -->
+
+  <!-- ---- Marketing extras ---- -->
+  <node id="announcementBar" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/AnnouncementBar.tsx</path></meta>
+    <constraint verify="static">Export default React component `AnnouncementBar` accepting `message`, `link?` ({label,href}) and `onDismiss?`. Thin top strip above the navbar. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Full-width slim bar bg-indigo-600 text-white text-sm text-center py-2 with the message and an underlined CTA link; optional dismiss X on the right (bg-indigo-600 persists). Dismissable state saved to localStorage.</constraint>
+  </node>
+
+  <node id="comparisonTable" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/ComparisonTable.tsx</path></meta>
+    <constraint verify="static">Export default React component `ComparisonTable` accepting `columns` (plans), `rows` (features with per-plan values/booleans), `highlightColumn?`. Sticky first column on mobile. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Borderless table: first column = feature names (left-aligned, sticky on scroll), plan columns centered. Check = emerald check svg, dash = slate. Highlighted plan column gets bg-indigo-50. Header repeats plan names + price. Responsive: horizontally scroll on tiny screens.</constraint>
+  </node>
+
+  <node id="timeline" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/Timeline.tsx</path></meta>
+    <constraint verify="static">Export default React component `Timeline` accepting `items` ({date?,title,description,icon?,status?}) and `orientation` ('vertical'|'horizontal'). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Vertical: left rail line with dot/square nodes (indigo when done, slate when pending), content to the right (date text-xs text-slate-400, title font-medium, description). Horizontal (roadmap): nodes left-to-right with connecting line, scrollable on mobile.</constraint>
+  </node>
+
+  <node id="team" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/Team.tsx</path></meta>
+    <constraint verify="static">Export default React component `Team` accepting `members` ({name,role,avatar?,social?}) in a responsive Grid of member Cards. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Section heading + Grid (1/2/4 cols) of Cards: Avatar (xl), name font-semibold, role text-slate-500, social icon row (hover:text-indigo-600). Soft hover lift. Good for About pages.</constraint>
+  </node>
+
+  <node id="appStoreBadges" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/AppStoreBadges.tsx</path></meta>
+    <constraint verify="static">Export default React component `AppStoreBadges` accepting `iosHref?`, `androidHref?`, `variant?` ('dark'|'light'). Two download buttons. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Row of two pill buttons (bg-black text-white or white border) with the Apple + Google Play glyphs and "Download on the / Google Play" two-line labels; hover:opacity-90. Used on Hero/CTA for mobile apps.</constraint>
+  </node>
+
+  <node id="videoSection" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/VideoSection.tsx</path></meta>
+    <constraint verify="static">Export default React component `VideoSection` accepting `poster`, `src` (or `youtubeId`), `title?`, `description?`. Click-to-play with lightbox. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] 16:9 AspectRatio frame with blurred poster, big centered play button (bg-white/90 text-indigo-600 rounded-full), on click opens Modal/inline iframe. Optional side text column on lg. Great as a product demo section.</constraint>
+  </node>
+
+  <!-- ---- Jobs / careers ---- -->
+  <node id="jobListing" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/JobListing.tsx</path></meta>
+    <constraint verify="static">Export default React component `JobListing` accepting `jobs` ({id,title,team,location,type,salary?}), `filters?` and `onFilter`. List + filter sidebar. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Layout: left filter panel (Combobox/Checkbox for team, location, type), right list of job rows (Card-like: title font-semibold, meta badges for location/type, salary text-emerald-600, arrow on hover). Empty state when none. Links to /careers/{id}.</constraint>
+  </node>
+
+  <node id="jobDetail" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/JobDetail.tsx</path></meta>
+    <constraint verify="static">Export default React component `JobDetail` accepting `job` ({title,team,location,type,salary,description,responsibilities[],requirements[]}) with an "Apply" sticky card. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Two-column on lg: main prose (overview, responsibility/requirement bullet lists with check icons), right sticky Card with key facts (location/type/salary) + primary "Apply now" Button + "Share". Breadcrumb back to listing. Clean docs-like typography.</constraint>
+  </node>
+
+  <node id="jobApply" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/JobApply.tsx</path></meta>
+    <constraint verify="static">Export default React component `JobApply` accepting `jobTitle` with name, email, resume (FileUpload), cover-letter (TextArea), links (portfolio, linkedin) and submit. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card form max-w-2xl: header "Apply — {jobTitle}", fields stacked with TextField/TextArea/FileUpload, link inputs with InputGroup (@ / https://), primary submit. Inline validation + success state. Mirrors ContactForm styling.</constraint>
+  </node>
+
+  <!-- ---- Real estate / property ---- -->
+  <node id="propertyCard" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/PropertyCard.tsx</path></meta>
+    <constraint verify="static">Export default React component `PropertyCard` accepting `property` ({id,title,price,image,beds,baths,area,location,badge?}) linking to /properties/{id}. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Like ProductCard but real-estate: image top with price badge (bg-black/70 text-white rounded-lg px-2 py-1) bottom-left; body: title truncate, location with pin icon text-slate-500, spec row (bed/bath/area icons). Heart save top-right. Hover zoom.</constraint>
+  </node>
+
+  <node id="propertyDetail" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/PropertyDetail.tsx</path></meta>
+    <constraint verify="static">Export default React component `PropertyDetail` accepting `property` ({title,price,images[],beds,baths,area,description,amenities[],address,agent?}) with gallery + map + inquiry form. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Gallery grid (1 big + thumbnails), price + specs header, amenities chip row, description prose, embedded MapEmbed, sticky right Card with agent Avatar + "Contact agent" Form (name/email/message). Breadcrumb + favorite. Responsive stack on mobile.</constraint>
+  </node>
+
+  <!-- ---- Education / LMS ---- -->
+  <node id="courseCard" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/CourseCard.tsx</path></meta>
+    <constraint verify="static">Export default React component `CourseCard` accepting `course` ({id,title,cover,instructor,level,rating,students,price?,progress?}) linking to /courses/{id}. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card: cover image, level Badge (beginner/intermediate/advanced), title font-semibmod, instructor row (Avatar sm + name), rating stars + students count, price (or "Free"). If progress present show Progress bar "62% complete". Hover lift.</constraint>
+  </node>
+
+  <node id="coursePlayer" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/CoursePlayer.tsx</path></meta>
+    <constraint verify="static">Export default React component `CoursePlayer` accepting `lesson` ({title,videoSrc}), `curriculum` (sections→lessons with completed flags) and `onSelect`. Sidebar playlist + video. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Two-column: left sticky curriculum (collapsible sections, lessons with check/duration, active highlighted indigo), right VideoSection + lesson title + "Mark complete"/"Next" footer + notes area. Dark sidebar option. Used by e-learning platforms.</constraint>
+  </node>
+
+  <!-- ---- Food / restaurant ---- -->
+  <node id="restaurantMenu" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/RestaurantMenu.tsx</path></meta>
+    <constraint verify="static">Export default React component `RestaurantMenu` accepting `categories` ({name,items:{name,description,price,image?,tags?[]}}) with sticky category nav. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Sticky top category tabs; each category: heading + list of items (name + price on one line with dotted leader, description text-slate-500, optional thumbnail + veg/vegan/spicy Badges). Elegant editorial spacing, warm accent (amber/rose). Great for restaurant & cafe sites.</constraint>
+  </node>
+
+  <!-- ---- Events / ticketing ---- -->
+  <node id="eventAgenda" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/EventAgenda.tsx</path></meta>
+    <constraint verify="static">Export default React component `EventAgenda` accepting `sessions` ({time,title,speaker?,track?,room?}) grouped by day, with "Add to schedule" toggle. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Day tabs + Timeline-style rows: time column (text-slate-400), session Card with title, speaker Avatar+name, track Badge, room. Toggle to save to personal schedule (indigo filled). Used by conferences/meetups.</constraint>
+  </node>
+
+  <!-- ---- Nonprofit / fundraising ---- -->
+  <node id="donationForm" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/DonationForm.tsx</path></meta>
+    <constraint verify="static">Export default React component `DonationForm` accepting `presets` (amounts), `goal?`, `raised?` with amount buttons + custom + recurring toggle + donor fields + submit. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card: top Progress bar (raised/goal, emerald), preset amount Chips (selected ring-indigo-500) + custom TextField, "Monthly/One-time" Switch, donor name/email, primary "Donate $X" Button. Warm, hopeful palette. Used by nonprofits/crowdfunding.</constraint>
+  </node>
+
+  <!-- ---- Docs / knowledge base ---- -->
+  <node id="knowledgeBase" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/KnowledgeBase.tsx</path></meta>
+    <constraint verify="static">Export default React component `KnowledgeBase` accepting `categories` ({title,articles:{title,href}[]}) and a SearchBar, rendering a help-center landing. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Centered hero SearchBar ("How can we help?"), then Grid of category Cards (icon + title + article link list, "View all" footer). Clean, calm, lots of whitespace. Links into DocsLayout articles.</constraint>
+  </node>
+
+  <node id="docsLayout" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/DocsLayout.tsx</path></meta>
+    <constraint verify="static">Export default React component `DocsLayout` accepting `nav` (tree of {title,href,children?}), `toc` (headings) and `children` (article). Three-pane docs shell. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Left sidebar (collapsible nav tree, active link text-indigo-600 bg-indigo-50 rounded), center prose max-w-3xl (Docs article), right TOC (sticky, scrollspy highlights current heading). Top bar with SearchBar/Breadcrumb. Used by product docs & wikis.</constraint>
+  </node>
+
+  <!-- ---- Forum / community ---- -->
+  <node id="forumTopic" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/ForumTopic.tsx</path></meta>
+    <constraint verify="static">Export default React component `ForumTopic` accepting `topic` ({title,author,replies,views,lastActivity,tag?,pinned?,solved?}) in a list row. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Row Card: title font-medium (pinned shows pin icon, solved shows emerald check Badge), meta (author Avatar sm + name, replies/views counts with icons, last activity time). Hover bg-slate-50. Links to thread. Clean Discourse/Reddit-like list.</constraint>
+  </node>
+
+  <node id="forumThread" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/ForumThread.tsx</path></meta>
+    <constraint verify="static">Export default React component `ForumThread` accepting `posts` ({author,avatar?,body,time,votes,accepted?}) with vote controls + reply composer. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Original post Card + replies; each post: left vote column (▲ count ▼, accepted answer glows emerald), author byline (Avatar + name + role Badge), body prose, action row (quote/reply). Sticky reply composer at bottom. Accessible.</constraint>
+  </node>
+
+  <!-- ---- Media players ---- -->
+  <node id="podcastPlayer" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/PodcastPlayer.tsx</path></meta>
+    <constraint verify="static">Export default React component `PodcastPlayer` accepting `episode` ({title,show,cover,src,duration}) with play/pause, seek, speed, skip ±15s. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card: cover thumbnail + show/title, a seek Progress bar with current/total time, centered transport (skip-back, play/pause circle indigo, skip-fwd), speed control (1x/1.5x/2x) + share. Sticky bottom variant for continuous playback.</constraint>
+  </node>
+
+  <node id="videoPlayer" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/VideoPlayer.tsx</path></meta>
+    <constraint verify="static">Export default React component `VideoPlayer` accepting `src` (or `youtubeId`/`vimeoId`), `poster?`, `captions?`, `autoPlay?`. Accessible controls (play, seek, volume, fullscreen, CC). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] 16:9 AspectRatio frame; custom control bar (bg-gradient-to-t from-black/70) with play/pause, scrubber Progress, volume, time, CC, fullscreen; big center play until started; keyboard shortcuts (space/k/m/f). Used by OTT & course platforms.</constraint>
+  </node>
+
+  <!-- ---- Geo ---- -->
+  <node id="mapEmbed" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/MapEmbed.tsx</path></meta>
+    <constraint verify="static">Export default React component `MapEmbed` accepting `center` ({lat,lng}), `zoom?`, `markers?` (array) and `height?`. Embeds an interactive map (provider-agnostic placeholder). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Rounded-xl overflow-hidden map frame with a placeholder tile background + marker pins (indigo drop), optional info popover on marker click. Provide a static fallback image when no map key. Used by property, store-locator and event pages.</constraint>
+  </node>
+
+  <node id="storeLocator" type="ui-component" flow="industry">
+    <meta><path>components/ui/industry/StoreLocator.tsx</path></meta>
+    <constraint verify="static">Export default React component `StoreLocator` accepting `stores` ({name,address,distance?,hours?}) with search + MapEmbed side-by-side. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Two-pane: left scrollable list of store Cards (name, address, distance Badge, hours) with a search/zip Filter on top, right sticky MapEmbed highlighting the selected store's pin. Responsive: map collapses below list on mobile. Retail/chain sites.</constraint>
+  </node>
+
+</project>

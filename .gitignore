@@ -1,0 +1,9 @@
+# pxml build/state artifacts
+.pxml/
+.pxml-temp-init/
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/

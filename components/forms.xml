@@ -1,0 +1,33 @@
+<project name="uix-forms" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- FORMS & INPUTS                                                -->
+  <!-- ============================================================= -->
+
+  <node id="contactForm" type="ui-component" flow="forms">
+    <meta><path>components/ui/forms/ContactForm.tsx</path></meta>
+    <constraint verify="static">Export default React component `ContactForm` with name, email, subject and message fields, a submit button and a success state. Client-side required + email validation. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card form max-w-xl: label-above inputs (name + email in 2-col grid on md), subject full width, message textarea (rows=5). Inputs rounded-lg border border-slate-300 focus:ring-indigo-500. Full-width primary Button "Send message". On submit show success panel with check icon + "We'll be in touch". Accessible labels + error text in red.</constraint>
+  </node>
+
+  <node id="searchBar" type="ui-component" flow="forms">
+    <meta><path>components/ui/forms/SearchBar.tsx</path></meta>
+    <constraint verify="static">Export default React component `SearchBar` accepting `value`, `onChange`, `placeholder?` and `onSubmit?`. Search icon inside, optional clear button. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Rounded-full or rounded-lg container bg-white border border-slate-300 focus-within:ring-2 focus-within:ring-indigo-500, px-3 py-2 flex items-center. Left magnifier icon text-slate-400, input border-0 focus:ring-0 flex-1, clear (X) button appears when value non-empty. Submit on Enter.</constraint>
+  </node>
+
+  <node id="multiStepForm" type="ui-component" flow="forms">
+    <meta><path>components/ui/forms/MultiStepForm.tsx</path></meta>
+    <constraint verify="static">Export default React component `MultiStepForm` accepting `steps` (array of {title,content:ReactNode}), `onSubmit`. Progress indicator + back/next buttons. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Card with a top stepper: numbered circles connected by a line (completed=bg-indigo-600 text-white, active=ring-2 ring-indigo-500, todo=bg-slate-200). Current step title + content below. Footer: "Back" (secondary, disabled on first) + "Next"/"Submit" (primary, last step). Animate step transition (fade/slide).</constraint>
+  </node>
+
+  <node id="fileUpload" type="ui-component" flow="forms">
+    <meta><path>components/ui/forms/FileUpload.tsx</path></meta>
+    <constraint verify="static">Export default React component `FileUpload` accepting `accept?`, `multiple?`, `onFiles` and `maxSizeMb?`. Drag-and-drop zone + click to browse, shows selected file list with remove. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Dashed-border drop zone (border-2 border-dashed border-slate-300 rounded-xl p-8 text-center hover:border-indigo-400 hover:bg-indigo-50/40 transition) with upload glyph + "Drag files here or click to browse". Selected files list: filename + size + remove X, with size/type validation error in red. Accessible (hidden input + label).</constraint>
+  </node>
+
+</project>

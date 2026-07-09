@@ -1,0 +1,52 @@
+<project name="uix-layout" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../pxml.xsd">
+
+  <!-- ============================================================= -->
+  <!-- LAYOUT FOUNDATIONS                                            -->
+  <!-- Low-level building blocks used by every other component.     -->
+  <!-- ============================================================= -->
+
+  <node id="container" type="ui-component" flow="layout">
+    <meta><path>components/ui/layout/Container.tsx</path></meta>
+    <constraint verify="static">Export default React component `Container` accepting `children`, `maxWidth` ('sm'|'md'|'lg'|'xl'|'full') and `className`. Tailwind only, responsive.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] A horizontal centering wrapper: `mx-auto w-full px-4 sm:px-6 lg:px-8`, max width via maxWidth prop (md = max-w-3xl, lg = max-w-5xl, xl = max-w-7xl). Transparent background. No padding top/bottom by default.</constraint>
+  </node>
+
+  <node id="section" type="ui-component" flow="layout">
+    <meta><path>components/ui/layout/Section.tsx</path></meta>
+    <constraint verify="static">Export default React component `Section` accepting `children`, `spacing` ('sm'|'md'|'lg'), `background` ('white'|'muted'|'dark') and `className`. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Vertical rhythm block: py-12 md:py-20, default light bg (bg-white; muted = bg-slate-50; dark = bg-slate-900 text-white). Renders children inside an inner Container so content stays aligned to the page gutter.</constraint>
+  </node>
+
+  <node id="grid" type="ui-component" flow="layout">
+    <meta><path>components/ui/layout/Grid.tsx</path></meta>
+    <constraint verify="static">Export default React component `Grid` accepting `cols` (1-6), `gap` ('sm'|'md'|'lg'), `children` and `className`. Tailwind only, responsive (1 col mobile → cols on lg).</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] CSS grid wrapper: `grid gap-6 lg:grid-cols-{cols}`. gap sm=gap-4, md=gap-6, lg=gap-8. Items stretch evenly. Use it to lay out cards, feature tiles, and product listings.</constraint>
+  </node>
+
+  <node id="card" type="ui-component" flow="layout">
+    <meta><path>components/ui/layout/Card.tsx</path></meta>
+    <constraint verify="static">Export default React component `Card` accepting `children`, `padding`, `hover` (boolean) and `className`. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Surface panel: bg-white rounded-xl border border-slate-200 shadow-sm. padding md = p-6. When hover=true add `transition hover:shadow-md hover:-translate-y-0.5`. Sensible for content, forms and media.</constraint>
+  </node>
+
+  <node id="button" type="ui-component" flow="layout">
+    <meta><path>components/ui/layout/Button.tsx</path></meta>
+    <constraint verify="static">Export default React component `Button` supporting `variant` ('primary'|'secondary'|'ghost'|'danger'), `size` ('sm'|'md'|'lg'), `as` ('button'|'a') and all native props. Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] primary = bg-indigo-600 text-white hover:bg-indigo-700; secondary = bg-slate-100 text-slate-900 hover:bg-slate-200; ghost = text-indigo-600 hover:bg-indigo-50; danger = bg-red-600 text-white hover:bg-red-700. Sizes: sm=px-3 py-1.5 text-sm, md=px-4 py-2, lg=px-6 py-3 text-lg. Always rounded-lg font-medium, focus-visible:ring-2 ring-offset-2, disabled:opacity-50.</constraint>
+  </node>
+
+  <node id="divider" type="ui-component" flow="layout">
+    <meta><path>components/ui/layout/Divider.tsx</path></meta>
+    <constraint verify="static">Export default React component `Divider` accepting `label` (optional) and `orientation` ('horizontal'|'vertical'). Tailwind only.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] Horizontal hairline: `border-t border-slate-200 my-6`. If label given, render an inline-flex centered row with the label text-slate-400 text-sm and lines on both sides.</constraint>
+  </node>
+
+  <node id="spacer" type="ui-component" flow="layout">
+    <meta><path>components/ui/layout/Spacer.tsx</path></meta>
+    <constraint verify="static">Export default React component `Spacer` accepting `size` ('xs'|'sm'|'md'|'lg'|'xl'). Tailwind only. No visual element, just spacing.</constraint>
+    <constraint verify="llm-judge">[DEFAULT STYLE] An empty div that pushes siblings apart: xs=h-2, sm=h-4, md=h-8, lg=h-12, xl=h-20. Useful inside flex columns.</constraint>
+  </node>
+
+</project>
