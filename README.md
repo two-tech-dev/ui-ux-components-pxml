@@ -96,6 +96,54 @@ To change the shared design language (color, radius, density) across many compon
 project-level `<constraint verify="llm-judge">` to a wrapper node that other nodes `depends_on`,
 or simply restyle each tag individually with its own prompt.
 
+## Editor / IDE support (autocomplete & docs)
+
+pxml validates/edits via the **Red Hat XML extension** bound to a schema (`xsi:noNamespaceSchemaLocation`).
+This package ships an enriched schema so your editor can suggest component `flow`s and show every
+component in hover docs.
+
+### A. Manual binding (works with any pxml version)
+
+The package includes two files:
+
+- `ui-ux-components-pxml.xsd` — enriched schema: enumerates the 15 `flow` categories and documents
+  all ~150 components (generated from `components/*.xml` via `node scripts/gen-schema.mjs`).
+- `catalog.xml` — OASIS catalog that remaps `pxml.xsd` → the enriched schema.
+
+Bind it by adding to your project's `.vscode/settings.json`:
+
+```json
+{
+  "xml.catalogs": [
+    "packages/ui-ux-components-pxml/catalog.xml"
+  ]
+}
+```
+
+(Adjust the path to wherever the package lives — e.g. `.pxml/packages/github/two-tech-dev/ui-ux-components-pxml/catalog.xml`
+when pulled from git.) After this, typing `flow="` suggests `auth`/`ecommerce`/…, and hovering a
+`<node>` shows the full component catalog.
+
+> Note: because each project chooses its own import `as` alias, the editor cannot autocomplete the
+> exact `extends="uix:auth:login"` value — the alias prefix is dynamic. It *can* suggest `flow`/`type`
+> and document every component, which covers discovery. See option B for automatic wiring.
+
+### B. Zero-config (pxml compiler auto-sync)
+
+If your pxml compiler includes the editor-schema auto-sync (see the `two-tech-dev/pxml` repo),
+**importing this package from git is enough** — no manual binding needed:
+
+```xml
+<import package="ui-ux-components-pxml"
+        from="github:two-tech-dev/ui-ux-components-pxml" as="uix" />
+```
+
+On the next `pxml validate` / `pxml compile`, the compiler clones the package, derives an enriched
+schema from the *actual* cloned components (enumerating their `flow`s/`type`s), writes
+`.pxml/schemas/pxml.enriched.xsd` + `.pxml/catalog.xml`, and registers `.pxml/catalog.xml` in
+`.vscode/settings.json` automatically. Autocomplete (and docs) light up with zero config. Flow/type
+enumerations are unions with `xs:string`, so custom values you add still validate — no false errors.
+
 ## Notes
 
 - Stacks: components assume Tailwind + React (Next.js App Router). For other stacks set the

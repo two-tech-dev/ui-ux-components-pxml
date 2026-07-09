@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- OASIS XML Catalog: remap "pxml.xsd" to the enriched component schema
+     so any project.xml referencing pxml.xsd also gets component hints.
+     Bind this file via VS Code setting "xml.catalogs". -->
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <system systemId="pxml.xsd" uri="ui-ux-components-pxml.xsd"/>
+</catalog>

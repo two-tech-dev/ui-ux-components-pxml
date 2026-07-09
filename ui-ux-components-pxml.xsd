@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Auto-generated enriched schema for ui-ux-components-pxml.
+     Extends pxml.xsd with enumerated flows/types and component documentation
+     so editors (VS Code XML by Red Hat) suggest tags and show docs. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="UiFlowType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="auth"/>
+            <xs:enumeration value="booking"/>
+            <xs:enumeration value="content"/>
+            <xs:enumeration value="dashboard"/>
+            <xs:enumeration value="ecommerce"/>
+            <xs:enumeration value="errors"/>
+            <xs:enumeration value="feedback"/>
+            <xs:enumeration value="forms"/>
+            <xs:enumeration value="industry"/>
+            <xs:enumeration value="inputs"/>
+            <xs:enumeration value="layout"/>
+            <xs:enumeration value="marketing"/>
+            <xs:enumeration value="navigation"/>
+            <xs:enumeration value="primitives"/>
+            <xs:enumeration value="social"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType><xs:restriction base="xs:string"/></xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+
+  <xs:simpleType name="UiNodeType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ui-component"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType><xs:restriction base="xs:string"/></xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+
+  <xs:element name="project">
+    <xs:annotation><xs:documentation>ui-ux-components-pxml: ~152 reusable UI/UX base components.
+Use a component by extending it: &lt;node id="..." type="ui-component" flow="&lt;cat&gt;" extends="uix:&lt;cat&gt;:&lt;name&gt;"&gt;
+then add &lt;constraint verify="llm-judge"&gt; to restyle. Component catalog:
+      [auth]
+        • login — Centered login card on a clean light page (bg-slate-50 min-h-screen grid place-items-cente
+        • signup — Same card shell as Login. Heading &quot;Create your account&quot;. Two-column grid for name/email on
+        • forgotPassword — Centered card (mirrors Login). Heading &quot;Reset your password&quot; + helper text &quot;We'll email yo
+        • resetPassword — Centered card shell. Heading &quot;Set a new password&quot;. Two password inputs with strength meter
+        • otpVerify — Centered card. Heading &quot;Enter the code&quot; + subtext showing the masked email. Six square inp
+        • socialLogin — Stack of full-width outlined buttons (bg-white border border-slate-300 text-slate-700 hove
+        • onboarding — Centered card with a top Stepper/progress, one question per screen (e.g. role, interests a
+        • profileSettings — Settings shell: left tab rail (Profile/Account/Notifications/Danger) + content Card. Profi
+        • changePassword — Card form inside ProfileSettings/Account: three password TextFields with show/hide toggles
+        • twoFactor — Two-step Card: step 1 shows a QR code (placeholder image) + manual secret key in a Kbd, st
+        • inviteAccept — Card: &quot;You've been invited to {workspace} by {inviter}&quot; with workspace Avatar, primary &quot;Ac
+      [booking]
+        • bookingWidget — Rounded-2xl shadow-xl bg-white p-4 grid of fields (location combobox, date range, guests s
+        • appointmentScheduler — Two-pane: left date strip (vertical days, selected ring-indigo-500), right grid of time-sl
+        • dateRangePicker — Popover with two side-by-side DatePicker months; dragging/clicking selects a start then en
+        • reservationConfirm — Card with a success check banner (bg-emerald-50 text-emerald-700), detail rows (icon + lab
+        • seatMap — Grid of small rounded squares: available bg-white border-slate-300, selected bg-indigo-600
+      [content]
+        • blogList — Page with a heading + optional SearchBar/filter row, then a responsive Grid (1/2/3 cols) o
+        • articleCard — Card with cover image top (aspect-[16/9] object-cover), body p-5: tag pill (bg-indigo-50 t
+        • blogPost — Centered reading column max-w-3xl (prose prose-slate). Cover hero (full-width or rounded-2
+        • gallery — Masonry-ish responsive grid of thumbnails (object-cover, hover zoom + overlay). Click open
+        • carousel — Full-width slider with snap-x scroll (or transform track), prev/next chevrons (absolute, c
+        • codeBlock — Rounded-xl bg-slate-950 text-slate-100 overflow-hidden: optional filename tab bar, scrolla
+        • tableOfContents — Nested list of links (text-sm text-slate-500, h3 indented), active item text-indigo-600 fo
+        • audioPlayer — Compact bar: artwork thumb + title, seek Progress, transport (skip-back, play/pause indigo
+        • newsCard — Magazine layout: large &quot;lead&quot; Card (big image + headline + standfirst) and smaller seconda
+      [dashboard]
+        • adminLayout — App shell: h-screen flex. Left Sidebar (fixed), main column flex-1 with sticky top bar (bg
+        • statCard — Compact Card p-5: top row icon chip (bg-indigo-50 text-indigo-600 rounded-lg p-2) + label
+        • dataTable — Card-wrapped table: header row bg-slate-50 text-slate-500 text-xs uppercase tracking-wide,
+        • chartPanel — Card with a header row: title font-semibold + optional subtitle left, actions (segmented r
+        • notification — Bell button (with unread dot) toggling a right-aligned dropdown panel w-80: header &quot;Notifi
+        • userMenu — Avatar button (rounded-full w-9 h-9) toggling a right dropdown w-56: header with avatar +
+        • calendar — Toolbar (prev/next, today, view switch) + month grid: cells bg-white border, today ring-1
+        • kanban — Horizontal scroll of column Cards (bg-slate-100 rounded-xl p-3): column header with count,
+        • messages — Two-pane: left conversation list (Avatar + name + last message truncate + unread Badge, ac
+        • activityLog — Vertical Timeline of rows: Avatar/icon + &quot;Actor action target&quot; (actor bold) + relative tim
+        • settingsPage — App-shell settings: left rail of section links (icon + label, active text-indigo-600 bg-in
+        • filterBar — Flex-wrap row: SearchBar (grow), Select dropdowns (status/owner), DateRangePicker, active-
+      [ecommerce]
+        • productCard — Card with image top (aspect-square object-cover rounded-t-xl), body p-4: title font-medium
+        • productGrid — Responsive Grid: 2 cols mobile, 3 cols md, 4 cols lg, gap-6. Empty state message when prod
+        • productDetail — Two-column on lg (gallery left, info right), stacked mobile. Gallery: main image + thumbna
+        • cart — List of line items (thumbnail + title + price, qty stepper, remove X). Right (or bottom) s
+        • checkout — Two-column on lg: left form (contact email, shipping address grid, payment card mock input
+        • wishlist — Page heading &quot;Your Wishlist&quot; + a ProductGrid of items. Each card shows a filled heart butt
+        • orderHistory — Heading &quot;Order History&quot;. Each order is a Card row: order #id + date (text-slate-500), stat
+        • filterPanel — Stacked filter groups (Collapsible/Accordion): price as Slider with inputs, checkbox group
+        • quickView — Modal with two-column: gallery left, info right (title, price, rating, short description,
+        • reviewList — Header: big average (Rating stars + &quot;{count} reviews&quot;) + distribution bars (5★→1★ with ind
+        • reviewForm — Card form: interactive Rating (big stars), title TextField, body TextArea, optional photo
+        • couponInput — InputGroup: text field (placeholder &quot;Promo code&quot;) + &quot;Apply&quot; Button; when applied show a su
+        • orderTracking — Card: order # + carrier/tracking link at top, a horizontal Stepper/Timeline (Ordered → Shi
+        • sizeGuide — Compact table (size XS–XXL × chest/waist/length) inside a Popover or Modal triggered by &quot;S
+      [errors]
+        • notFound — Full-height grid place-items-center bg-slate-50 text-center: big display number (text-6xl
+        • errorPage — Similar shell to NotFound but red/amber accent (text-rose-600), title &quot;Something went wron
+        • maintenance — Centered bg-slate-900 text-white: wrench/gear glyph, title &quot;Under maintenance&quot;, message +
+        • searchResults — Top SearchBar showing query; left optional facet filters (Checkbox/Select), right results
+        • comingSoon — Centered hero: brand mark, big title, subtitle, optional Countdown to launchDate, email Fi
+      [feedback]
+        • modal — Fixed inset-0 z-50 grid place-items-center p-4. Backdrop bg-black/50 backdrop-blur-sm. Pan
+        • toast — Fixed bottom-right z-[60] stack of pills: bg-white rounded-xl shadow-lg border-l-4 (succes
+        • alert — Rounded-lg border-l-4 p-4 flex gap-3: info=bg-blue-50 border-blue-500 text-blue-800, succe
+        • tooltip — Small dark bubble (bg-slate-900 text-white text-xs rounded-md px-2 py-1 shadow) appearing
+        • drawer — Fixed inset-0 z-50: backdrop bg-black/40, panel w-80 (sm) / w-96 (md) h-full bg-white shad
+      [forms]
+        • contactForm — Card form max-w-xl: label-above inputs (name + email in 2-col grid on md), subject full wi
+        • searchBar — Rounded-full or rounded-lg container bg-white border border-slate-300 focus-within:ring-2
+        • multiStepForm — Card with a top stepper: numbered circles connected by a line (completed=bg-indigo-600 tex
+        • fileUpload — Dashed-border drop zone (border-2 border-dashed border-slate-300 rounded-xl p-8 text-cente
+      [industry]
+        • announcementBar — Full-width slim bar bg-indigo-600 text-white text-sm text-center py-2 with the message and
+        • comparisonTable — Borderless table: first column = feature names (left-aligned, sticky on scroll), plan colu
+        • timeline — Vertical: left rail line with dot/square nodes (indigo when done, slate when pending), con
+        • team — Section heading + Grid (1/2/4 cols) of Cards: Avatar (xl), name font-semibold, role text-s
+        • appStoreBadges — Row of two pill buttons (bg-black text-white or white border) with the Apple + Google Play
+        • videoSection — 16:9 AspectRatio frame with blurred poster, big centered play button (bg-white/90 text-ind
+        • jobListing — Layout: left filter panel (Combobox/Checkbox for team, location, type), right list of job
+        • jobDetail — Two-column on lg: main prose (overview, responsibility/requirement bullet lists with check
+        • jobApply — Card form max-w-2xl: header &quot;Apply — {jobTitle}&quot;, fields stacked with TextField/TextArea/F
+        • propertyCard — Like ProductCard but real-estate: image top with price badge (bg-black/70 text-white round
+        • propertyDetail — Gallery grid (1 big + thumbnails), price + specs header, amenities chip row, description p
+        • courseCard — Card: cover image, level Badge (beginner/intermediate/advanced), title font-semibmod, inst
+        • coursePlayer — Two-column: left sticky curriculum (collapsible sections, lessons with check/duration, act
+        • restaurantMenu — Sticky top category tabs; each category: heading + list of items (name + price on one line
+        • eventAgenda — Day tabs + Timeline-style rows: time column (text-slate-400), session Card with title, spe
+        • donationForm — Card: top Progress bar (raised/goal, emerald), preset amount Chips (selected ring-indigo-5
+        • knowledgeBase — Centered hero SearchBar (&quot;How can we help?&quot;), then Grid of category Cards (icon + title +
+        • docsLayout — Left sidebar (collapsible nav tree, active link text-indigo-600 bg-indigo-50 rounded), cen
+        • forumTopic — Row Card: title font-medium (pinned shows pin icon, solved shows emerald check Badge), met
+        • forumThread — Original post Card + replies; each post: left vote column (▲ count ▼, accepted answer glow
+        • podcastPlayer — Card: cover thumbnail + show/title, a seek Progress bar with current/total time, centered
+        • videoPlayer — 16:9 AspectRatio frame; custom control bar (bg-gradient-to-t from-black/70) with play/paus
+        • mapEmbed — Rounded-xl overflow-hidden map frame with a placeholder tile background + marker pins (ind
+        • storeLocator — Two-pane: left scrollable list of store Cards (name, address, distance Badge, hours) with
+      [inputs]
+        • textField — Label text-sm font-medium text-slate-700 above the control. Input: w-full rounded-lg borde
+        • textArea — Same label/error treatment as TextField. Textarea: w-full rounded-lg border border-slate-3
+        • select — Trigger: same shell as TextField with a chevron on the right. Open panel: absolute bg-whit
+        • checkbox — Square w-4 h-4 rounded border border-slate-300 bg-white checked:bg-indigo-600 border-indig
+        • radioGroup — Stack (or horizontal via `inline` prop) of circular w-4 h-4 controls border-slate-300 chec
+        • switch — Track w-11 h-6 rounded-full bg-slate-300 transition-colors checked:bg-indigo-600 with a kn
+        • slider — Horizontal track h-1.5 rounded-full bg-slate-200 with indigo filled portion; thumb w-4 h-4
+        • datePicker — Trigger mirrors TextField showing formatted date + calendar icon. Popover: month header wi
+        • combobox — TextField-like input with a chevron; typing filters the list. Panel shows matching options
+        • inputGroup — Flex row where addons (text/icon/button) sit flush against the input: addons bg-slate-100
+        • rating — Row of star svgs (text-slate-300 empty, text-amber-400 filled), hover previews the hovered
+        • tagInput — TextField-like box that wraps entered values as rounded-full bg-slate-100 text-slate-700 p
+        • colorPicker — Rounded swatch (w-8 h-8 ring-1 ring-slate-200) showing current color; popover with a satur
+      [layout]
+        • container — A horizontal centering wrapper: `mx-auto w-full px-4 sm:px-6 lg:px-8`, max width via maxWi
+        • section — Vertical rhythm block: py-12 md:py-20, default light bg (bg-white; muted = bg-slate-50; da
+        • grid — CSS grid wrapper: `grid gap-6 lg:grid-cols-{cols}`. gap sm=gap-4, md=gap-6, lg=gap-8. Item
+        • card — Surface panel: bg-white rounded-xl border border-slate-200 shadow-sm. padding md = p-6. Wh
+        • button — primary = bg-indigo-600 text-white hover:bg-indigo-700; secondary = bg-slate-100 text-slat
+        • divider — Horizontal hairline: `border-t border-slate-200 my-6`. If label given, render an inline-fl
+        • spacer — An empty div that pushes siblings apart: xs=h-2, sm=h-4, md=h-8, lg=h-12, xl=h-20. Useful
+      [marketing]
+        • hero — Two-column on lg (text left, media right), stacked on mobile. Light gradient background (b
+        • features — Section with centered heading. 3-column responsive Grid (1 col mobile, 3 col lg) of Cards.
+        • pricing — 3 plan Cards in a centered responsive Grid. Highlighted plan: ring-2 ring-indigo-500 scale
+        • testimonials — Section with heading. Responsive Grid (1/2/3 cols) of quote Cards: large leading quote mar
+        • faq — Centered max-w-3xl list. Each row: full-width button with question (font-medium text-slate
+        • cta — Full-width band bg-indigo-600 text-white rounded-3xl px-8 py-16 text-center (inside a Cont
+        • stats — Row of 4 stat blocks (2 cols mobile, 4 cols md) separated by dividers. Big value text-4xl
+        • logoCloud — Small centered eyebrow title (&quot;Trusted by teams at&quot;). Horizontal wrap of logo placeholders
+        • newsletter — Compact card or band: heading + one-line subtitle, then an inline form (email input flex-1
+      [navigation]
+        • navbar — Sticky translucent header: `sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-sl
+        • sidebar — Fixed-width left rail w-64 bg-slate-900 text-slate-300, hidden on mobile (drawer on small
+        • footer — Dark footer bg-slate-900 text-slate-400. Top region: responsive grid (1 col mobile, 2-4 co
+        • breadcrumb — Horizontal inline list of links separated by a chevron (›). text-sm text-slate-500; last i
+        • tabs — Horizontal tab strip with an animated bottom border indicator. Inactive: text-slate-500 ho
+        • pagination — Centered row of square buttons rounded-md, page numbers + prev/next chevrons. Current page
+        • mobileMenu — Full-height right drawer with a semi-transparent backdrop (bg-black/40) that closes on cli
+        • megaMenu — Wide dropdown panel (bg-white rounded-xl shadow-xl border) appearing under the active nav
+        • languageSwitcher — Globe icon button opening a DropdownMenu of languages (flag emoji + native label, current
+        • cookieConsent — Fixed bottom-4 inset-x-4 (or bottom banner full-width) Card bg-white shadow-2xl rounded-xl
+        • backToTop — Fixed bottom-right circular button (bg-indigo-600 text-white shadow-lg rounded-full p-3, u
+      [primitives]
+        • badge — Inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium: default=bg-slate-
+        • avatar — Rounded-full object-cover; initials variant bg-indigo-100 text-indigo-700 font-medium grid
+        • progress — Bar: h-2 rounded-full bg-slate-200 with indigo fill transition-all; circle variant is an S
+        • skeleton — bg-slate-200 rounded-md animate-pulse block element. Compose many to mimic a loading card/
+        • spinner — Border variant: w-/h- sized rounded-full border-2 border-slate-300 border-t-indigo-600 ani
+        • emptyState — Centered column max-w-sm py-16: muted illustration/icon (text-slate-300 text-5xl or svg),
+        • accordion — Vertical stack of rows; each trigger is a full-width flex justify-between (font-medium) wi
+        • popover — Floating panel bg-white rounded-xl shadow-lg border border-slate-200 p-3 z-30 with a subtl
+        • dropdownMenu — Compact menu panel (like UserMenu/Notification internals): rounded-lg shadow-lg border bor
+        • hoverCard — Card-like popover (bg-white rounded-xl shadow-lg border p-4) appearing after ~200ms hover
+        • contextMenu — Menu panel positioned at the cursor on contextmenu event (preventDefault), same styling as
+        • commandPalette — Centered Modal-like dialog (top-aligned) with a search input + grouped results; arrow-key
+        • kbd — Inline rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-mono text-xs text-sl
+        • toggle — Square rounded-md p-2 text-slate-600 hover:bg-slate-100, pressed:bg-indigo-100 text-indigo
+        • aspectRatio — Wrapper using `aspect-ratio` (or padding-top hack) so media keeps proportions responsively
+        • countdown — Row of unit blocks: each a rounded-lg bg-slate-900 text-white px-3 py-2 text-center with b
+      [social]
+        • commentSection — Threaded list: top composer (avatar + textarea + &quot;Comment&quot; Button indigo), then comments i
+        • feed — Single centered column max-w-xl of post Cards: header (avatar + author + time + ⋯ menu), b
+        • profilePage — Cover banner (h-40 bg-gradient-to-r from-indigo-500 to-purple-500) with overlapping avatar
+        • chat — Floating (or full) panel: header with Avatar + name + online dot + actions, scrollable bub
+        • stories — Horizontal scroll row of w-16 circles (ring-2 gradient ring-indigo-500 to-fuchsia-500 when
+        • notificationFeed — Page list of notification rows: Avatar + &quot;Actor verb target&quot; (actor bold, unread bg-indigo
+        • events — Grid of event Cards (cover image, date pill overlay, title, location with pin, RSVP button</xs:documentation></xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="import" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute name="src" type="xs:string" use="optional"/>
+            <xs:attribute name="package" type="xs:string" use="optional"/>
+            <xs:attribute name="from" type="xs:string" use="optional"/>
+            <xs:attribute name="as" type="xs:string" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="node" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="meta" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="path" type="xs:string"/>
+                    <xs:element name="depends_on" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="input" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="field" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="required"/>
+                        <xs:attribute name="type" type="xs:string" use="required"/>
+                        <xs:attribute name="required" type="xs:boolean" default="true"/>
+                        <xs:attribute name="format" type="xs:string" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="output" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="field" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="required"/>
+                        <xs:attribute name="type" type="xs:string" use="required"/>
+                        <xs:attribute name="required" type="xs:boolean" default="true"/>
+                        <xs:attribute name="format" type="xs:string" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="constraint" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="verify" default="static">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:enumeration value="static"/>
+                            <xs:enumeration value="llm-judge"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="learned-from" type="xs:string" use="optional"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="test" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="given" type="xs:anyType"/>
+                    <xs:element name="expect">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="status" type="xs:integer" minOccurs="0"/>
+                          <xs:element name="contains" type="xs:string" minOccurs="0"/>
+                          <xs:element name="match" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <xs:attribute name="type" type="UiNodeType" use="required"/>
+            <xs:attribute name="flow" type="UiFlowType" use="required"/>
+            <xs:attribute name="extends" type="xs:string" use="optional"/>
+            <xs:attribute name="autogen-tests" type="xs:boolean" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="stack" type="xs:string" use="required"/>
+      <xs:attribute name="version" type="xs:string" use="required"/>
+      <xs:attribute name="autogen-tests" type="xs:boolean" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
