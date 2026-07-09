@@ -1,0 +1,35 @@
+{
+  "name": "ui-ux-components-pxml",
+  "version": "0.3.4",
+  "description": "Comprehensive pxml UI/UX component library (~150 base components across 15 genres) for AI-compiled web projects. Use a tag via extends + attach an llm-judge prompt to restyle.",
+  "keywords": [
+    "pxml",
+    "ui",
+    "ux",
+    "components",
+    "design-system",
+    "ai",
+    "codegen",
+    "tailwind",
+    "nextjs"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/two-tech-dev/ui-ux-components-pxml",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/two-tech-dev/ui-ux-components-pxml.git"
+  },
+  "bugs": {
+    "url": "https://github.com/two-tech-dev/ui-ux-components-pxml/issues"
+  },
+  "files": [
+    "project.xml",
+    "components",
+    "pxml.xsd",
+    "bugs.xsd",
+    "ui-ux-components-pxml.xsd",
+    "catalog.xml",
+    "README.md",
+    "LICENSE"
+  ]
+}

@@ -1,0 +1,133 @@
+<!-- ============================================================
+     WORKFLOW EXAMPLE — người dùng xây dựng site "Acme Analytics" (SaaS)
+     Dùng package ui-ux-components-pxml được compile bởi pxml.
+
+     Các bước (terminal):
+       1) pxml init                      # scaffold project, copy pxml.xsd
+       2) git clone / npm i package vào  packages/ui-ux-components-pxml
+          (hoặc import thẳng từ github — xem dòng <import> dưới)
+       3) pxml validate                 # clone git pkg + sinh schema autocomplete
+       4) pxml compile                  # AI sinh code từng component đã extends
+
+     Trong editor (VS Code + XML extension):
+       - gõ  flow="        → gợi ý: auth ecommerce marketing dashboard ...
+       - gõ  extends="uix: → gợi ý: uix:auth:login uix:ecommerce:productGrid ...
+       (do schema B tự sinh từ alias `uix` của bạn)
+     ============================================================ -->
+
+<project name="acme-analytics" stack="nextjs" version="0.1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="pxml.xsd">
+
+  <!-- B1. Import package. Alias `uix` là do BẠN chọn → schema sẽ gợi ý
+       extends="uix:..." chính xác theo alias này. -->
+  <import package="ui-ux-components-pxml"
+          from="github:two-tech-dev/ui-ux-components-pxml" as="uix" />
+
+  <!-- B2. Muốn gọn hơn? Import chỉ 1 genre (rẻ token, chỉ genre đó vào build):
+       <import src="packages/ui-ux-components-pxml/components/auth.xml" as="uix-auth" />
+       → khi đó reference là uix-auth:login -->
+
+  <!-- ============ MARKETING / LANDING ============ -->
+
+  <!-- Navbar mặc định -->
+  <node id="ui.navbar" type="ui-component" flow="navigation" extends="uix:navigation:navbar">
+    <meta><path>app/components/Navbar.tsx</path></meta>
+  </node>
+
+  <!-- Hero: dùng mặc định -->
+  <node id="ui.hero" type="ui-component" flow="marketing" extends="uix:marketing:hero">
+    <meta><path>app/components/Hero.tsx</path></meta>
+  </node>
+
+  <!-- Hero thứ 2: CÙNG component nhưng gắn prompt để đổi style -->
+  <node id="page.home" type="ui-component" flow="marketing" extends="uix:marketing:hero">
+    <meta><path>app/page.tsx</path></meta>
+    <constraint verify="llm-judge">SaaS hero: eyebrow "AI-powered analytics",
+      title "See every metric, live", gradient fuchsia-600 → indigo-600 text,
+      primary CTA "Start free trial", media = animated dashboard preview.</constraint>
+  </node>
+
+  <node id="section.features" type="ui-component" flow="marketing" extends="uix:marketing:features">
+    <meta><path>app/components/Features.tsx</path></meta>
+    <constraint verify="llm-judge">3 tính năng: "Real-time", "Anomaly alerts", "Shareable dashboards". Icon outline, giữ accent indigo.</constraint>
+  </node>
+
+  <node id="section.pricing" type="ui-component" flow="marketing" extends="uix:marketing:pricing">
+    <meta><path>app/components/Pricing.tsx</path></meta>
+  </node>
+
+  <node id="section.faq" type="ui-component" flow="marketing" extends="uix:marketing:faq">
+    <meta><path>app/components/Faq.tsx</path></meta>
+  </node>
+
+  <node id="section.cta" type="ui-component" flow="marketing" extends="uix:marketing:cta">
+    <meta><path>app/components/Cta.tsx</path></meta>
+  </node>
+
+  <node id="ui.footer" type="ui-component" flow="navigation" extends="uix:navigation:footer">
+    <meta><path>app/components/Footer.tsx</path></meta>
+  </node>
+
+  <!-- ============ AUTH ============ -->
+
+  <!-- Login mặc định -->
+  <node id="auth.login" type="ui-component" flow="auth" extends="uix:auth:login">
+    <meta><path>app/login/page.tsx</path></meta>
+  </node>
+
+  <!-- Login branded: dark glassmorphism + social login -->
+  <node id="auth.login.brand" type="ui-component" flow="auth" extends="uix:auth:login">
+    <meta><path>app/(auth)/login/page.tsx</path></meta>
+    <constraint verify="llm-judge">Dark glassmorphism: bg-slate-950 text-white,
+      card bg-white/10 backdrop-blur-xl border-white/20, accent emerald-400
+      (thay vì indigo), thêm Google + GitHub social login ở trên (dùng SocialLogin).</constraint>
+  </node>
+
+  <node id="auth.signup" type="ui-component" flow="auth" extends="uix:auth:signup">
+    <meta><path>app/signup/page.tsx</path></meta>
+  </node>
+
+  <node id="auth.forgot" type="ui-component" flow="auth" extends="uix:auth:forgotPassword">
+    <meta><path>app/forgot-password/page.tsx</path></meta>
+  </node>
+
+  <!-- ============ DASHBOARD (app sau login) ============ -->
+
+  <node id="dash.layout" type="ui-component" flow="dashboard" extends="uix:dashboard:adminLayout">
+    <meta><path>app/dashboard/layout.tsx</path></meta>
+  </node>
+
+  <node id="dash.stat" type="ui-component" flow="dashboard" extends="uix:dashboard:statCard">
+    <meta><path>app/dashboard/components/StatCard.tsx</path></meta>
+  </node>
+
+  <node id="dash.table" type="ui-component" flow="dashboard" extends="uix:dashboard:dataTable">
+    <meta><path>app/dashboard/components/Table.tsx</path></meta>
+    <constraint verify="llm-judge">Bảng events: cột Time, User, Action, Status badge,
+      sortable, sticky header, hàng hover. Giữ style neutral + accent indigo.</constraint>
+  </node>
+
+  <node id="dash.chart" type="ui-component" flow="dashboard" extends="uix:dashboard:chartPanel">
+    <meta><path>app/dashboard/components/Chart.tsx</path></meta>
+  </node>
+
+  <node id="dash.usermenu" type="ui-component" flow="dashboard" extends="uix:dashboard:userMenu">
+    <meta><path>app/dashboard/components/UserMenu.tsx</path></meta>
+  </node>
+
+  <!-- ============ E-COMMERCE (nếu thêm store) ============ -->
+
+  <node id="shop.grid" type="ui-component" flow="ecommerce" extends="uix:ecommerce:productGrid">
+    <meta><path>app/shop/page.tsx</path></meta>
+    <constraint verify="llm-judge">Card ấm hơn: amber ở giá + "Add to cart",
+      rounded-2xl, badge "Free shipping" mềm.</constraint>
+  </node>
+
+  <!-- ============ LỖI HỆ THỐNG ============ -->
+
+  <node id="err.404" type="ui-component" flow="errors" extends="uix:errors:notFound">
+    <meta><path>app/not-found.tsx</path></meta>
+  </node>
+
+</project>
