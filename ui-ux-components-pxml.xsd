@@ -41,9 +41,7 @@
   </xs:simpleType>
 
   <xs:simpleType name="UiExtendsType">
-    <xs:union>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
+    <xs:restriction base="xs:string">
             <xs:enumeration value="uix:auth:login"/>
             <xs:enumeration value="uix:auth:signup"/>
             <xs:enumeration value="uix:auth:forgotPassword"/>
@@ -196,10 +194,7 @@
             <xs:enumeration value="uix:social:stories"/>
             <xs:enumeration value="uix:social:notificationFeed"/>
             <xs:enumeration value="uix:social:events"/>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType><xs:restriction base="xs:string"/></xs:simpleType>
-    </xs:union>
+    </xs:restriction>
   </xs:simpleType>
 
   <xs:element name="project">
