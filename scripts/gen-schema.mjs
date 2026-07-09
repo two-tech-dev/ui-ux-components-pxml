@@ -32,6 +32,9 @@ const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&
 
 const flowEnum = flows.map(f => `            <xs:enumeration value="${esc(f)}"/>`).join('\n');
 const typeEnum = types.map(t => `            <xs:enumeration value="${esc(t)}"/>`).join('\n');
+// Exact `extends` values, assuming the conventional import alias `uix`
+// (uix:<flow>:<componentId>). Editors then suggest the precise tag.
+const extendsEnum = nodes.map(n => `            <xs:enumeration value="uix:${esc(n.flow)}:${esc(n.id)}"/>`).join('\n');
 
 const flowDoc = flows.map(f => {
   const items = byFlow[f].map(n => `• ${esc(n.id)} — ${esc(n.doc)}`).join('\n        ');
@@ -60,6 +63,17 @@ ${flowEnum}
       <xs:simpleType>
         <xs:restriction base="xs:string">
 ${typeEnum}
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType><xs:restriction base="xs:string"/></xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+
+  <xs:simpleType name="UiExtendsType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+${extendsEnum}
         </xs:restriction>
       </xs:simpleType>
       <xs:simpleType><xs:restriction base="xs:string"/></xs:simpleType>
@@ -158,7 +172,7 @@ ${flowDoc}</xs:documentation></xs:annotation>
             <xs:attribute name="id" type="xs:string" use="required"/>
             <xs:attribute name="type" type="UiNodeType" use="required"/>
             <xs:attribute name="flow" type="UiFlowType" use="required"/>
-            <xs:attribute name="extends" type="xs:string" use="optional"/>
+            <xs:attribute name="extends" type="UiExtendsType" use="optional"/>
             <xs:attribute name="autogen-tests" type="xs:boolean" use="optional"/>
           </xs:complexType>
         </xs:element>

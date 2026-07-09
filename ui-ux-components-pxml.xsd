@@ -40,6 +40,168 @@
     </xs:union>
   </xs:simpleType>
 
+  <xs:simpleType name="UiExtendsType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="uix:auth:login"/>
+            <xs:enumeration value="uix:auth:signup"/>
+            <xs:enumeration value="uix:auth:forgotPassword"/>
+            <xs:enumeration value="uix:auth:resetPassword"/>
+            <xs:enumeration value="uix:auth:otpVerify"/>
+            <xs:enumeration value="uix:auth:socialLogin"/>
+            <xs:enumeration value="uix:auth:onboarding"/>
+            <xs:enumeration value="uix:auth:profileSettings"/>
+            <xs:enumeration value="uix:auth:changePassword"/>
+            <xs:enumeration value="uix:auth:twoFactor"/>
+            <xs:enumeration value="uix:auth:inviteAccept"/>
+            <xs:enumeration value="uix:booking:bookingWidget"/>
+            <xs:enumeration value="uix:booking:appointmentScheduler"/>
+            <xs:enumeration value="uix:booking:dateRangePicker"/>
+            <xs:enumeration value="uix:booking:reservationConfirm"/>
+            <xs:enumeration value="uix:booking:seatMap"/>
+            <xs:enumeration value="uix:content:blogList"/>
+            <xs:enumeration value="uix:content:articleCard"/>
+            <xs:enumeration value="uix:content:blogPost"/>
+            <xs:enumeration value="uix:content:gallery"/>
+            <xs:enumeration value="uix:content:carousel"/>
+            <xs:enumeration value="uix:content:codeBlock"/>
+            <xs:enumeration value="uix:content:tableOfContents"/>
+            <xs:enumeration value="uix:content:audioPlayer"/>
+            <xs:enumeration value="uix:content:newsCard"/>
+            <xs:enumeration value="uix:dashboard:adminLayout"/>
+            <xs:enumeration value="uix:dashboard:statCard"/>
+            <xs:enumeration value="uix:dashboard:dataTable"/>
+            <xs:enumeration value="uix:dashboard:chartPanel"/>
+            <xs:enumeration value="uix:dashboard:notification"/>
+            <xs:enumeration value="uix:dashboard:userMenu"/>
+            <xs:enumeration value="uix:dashboard:calendar"/>
+            <xs:enumeration value="uix:dashboard:kanban"/>
+            <xs:enumeration value="uix:dashboard:messages"/>
+            <xs:enumeration value="uix:dashboard:activityLog"/>
+            <xs:enumeration value="uix:dashboard:settingsPage"/>
+            <xs:enumeration value="uix:dashboard:filterBar"/>
+            <xs:enumeration value="uix:ecommerce:productCard"/>
+            <xs:enumeration value="uix:ecommerce:productGrid"/>
+            <xs:enumeration value="uix:ecommerce:productDetail"/>
+            <xs:enumeration value="uix:ecommerce:cart"/>
+            <xs:enumeration value="uix:ecommerce:checkout"/>
+            <xs:enumeration value="uix:ecommerce:wishlist"/>
+            <xs:enumeration value="uix:ecommerce:orderHistory"/>
+            <xs:enumeration value="uix:ecommerce:filterPanel"/>
+            <xs:enumeration value="uix:ecommerce:quickView"/>
+            <xs:enumeration value="uix:ecommerce:reviewList"/>
+            <xs:enumeration value="uix:ecommerce:reviewForm"/>
+            <xs:enumeration value="uix:ecommerce:couponInput"/>
+            <xs:enumeration value="uix:ecommerce:orderTracking"/>
+            <xs:enumeration value="uix:ecommerce:sizeGuide"/>
+            <xs:enumeration value="uix:errors:notFound"/>
+            <xs:enumeration value="uix:errors:errorPage"/>
+            <xs:enumeration value="uix:errors:maintenance"/>
+            <xs:enumeration value="uix:errors:searchResults"/>
+            <xs:enumeration value="uix:errors:comingSoon"/>
+            <xs:enumeration value="uix:feedback:modal"/>
+            <xs:enumeration value="uix:feedback:toast"/>
+            <xs:enumeration value="uix:feedback:alert"/>
+            <xs:enumeration value="uix:feedback:tooltip"/>
+            <xs:enumeration value="uix:feedback:drawer"/>
+            <xs:enumeration value="uix:forms:contactForm"/>
+            <xs:enumeration value="uix:forms:searchBar"/>
+            <xs:enumeration value="uix:forms:multiStepForm"/>
+            <xs:enumeration value="uix:forms:fileUpload"/>
+            <xs:enumeration value="uix:industry:announcementBar"/>
+            <xs:enumeration value="uix:industry:comparisonTable"/>
+            <xs:enumeration value="uix:industry:timeline"/>
+            <xs:enumeration value="uix:industry:team"/>
+            <xs:enumeration value="uix:industry:appStoreBadges"/>
+            <xs:enumeration value="uix:industry:videoSection"/>
+            <xs:enumeration value="uix:industry:jobListing"/>
+            <xs:enumeration value="uix:industry:jobDetail"/>
+            <xs:enumeration value="uix:industry:jobApply"/>
+            <xs:enumeration value="uix:industry:propertyCard"/>
+            <xs:enumeration value="uix:industry:propertyDetail"/>
+            <xs:enumeration value="uix:industry:courseCard"/>
+            <xs:enumeration value="uix:industry:coursePlayer"/>
+            <xs:enumeration value="uix:industry:restaurantMenu"/>
+            <xs:enumeration value="uix:industry:eventAgenda"/>
+            <xs:enumeration value="uix:industry:donationForm"/>
+            <xs:enumeration value="uix:industry:knowledgeBase"/>
+            <xs:enumeration value="uix:industry:docsLayout"/>
+            <xs:enumeration value="uix:industry:forumTopic"/>
+            <xs:enumeration value="uix:industry:forumThread"/>
+            <xs:enumeration value="uix:industry:podcastPlayer"/>
+            <xs:enumeration value="uix:industry:videoPlayer"/>
+            <xs:enumeration value="uix:industry:mapEmbed"/>
+            <xs:enumeration value="uix:industry:storeLocator"/>
+            <xs:enumeration value="uix:inputs:textField"/>
+            <xs:enumeration value="uix:inputs:textArea"/>
+            <xs:enumeration value="uix:inputs:select"/>
+            <xs:enumeration value="uix:inputs:checkbox"/>
+            <xs:enumeration value="uix:inputs:radioGroup"/>
+            <xs:enumeration value="uix:inputs:switch"/>
+            <xs:enumeration value="uix:inputs:slider"/>
+            <xs:enumeration value="uix:inputs:datePicker"/>
+            <xs:enumeration value="uix:inputs:combobox"/>
+            <xs:enumeration value="uix:inputs:inputGroup"/>
+            <xs:enumeration value="uix:inputs:rating"/>
+            <xs:enumeration value="uix:inputs:tagInput"/>
+            <xs:enumeration value="uix:inputs:colorPicker"/>
+            <xs:enumeration value="uix:layout:container"/>
+            <xs:enumeration value="uix:layout:section"/>
+            <xs:enumeration value="uix:layout:grid"/>
+            <xs:enumeration value="uix:layout:card"/>
+            <xs:enumeration value="uix:layout:button"/>
+            <xs:enumeration value="uix:layout:divider"/>
+            <xs:enumeration value="uix:layout:spacer"/>
+            <xs:enumeration value="uix:marketing:hero"/>
+            <xs:enumeration value="uix:marketing:features"/>
+            <xs:enumeration value="uix:marketing:pricing"/>
+            <xs:enumeration value="uix:marketing:testimonials"/>
+            <xs:enumeration value="uix:marketing:faq"/>
+            <xs:enumeration value="uix:marketing:cta"/>
+            <xs:enumeration value="uix:marketing:stats"/>
+            <xs:enumeration value="uix:marketing:logoCloud"/>
+            <xs:enumeration value="uix:marketing:newsletter"/>
+            <xs:enumeration value="uix:navigation:navbar"/>
+            <xs:enumeration value="uix:navigation:sidebar"/>
+            <xs:enumeration value="uix:navigation:footer"/>
+            <xs:enumeration value="uix:navigation:breadcrumb"/>
+            <xs:enumeration value="uix:navigation:tabs"/>
+            <xs:enumeration value="uix:navigation:pagination"/>
+            <xs:enumeration value="uix:navigation:mobileMenu"/>
+            <xs:enumeration value="uix:navigation:megaMenu"/>
+            <xs:enumeration value="uix:navigation:languageSwitcher"/>
+            <xs:enumeration value="uix:navigation:cookieConsent"/>
+            <xs:enumeration value="uix:navigation:backToTop"/>
+            <xs:enumeration value="uix:primitives:badge"/>
+            <xs:enumeration value="uix:primitives:avatar"/>
+            <xs:enumeration value="uix:primitives:progress"/>
+            <xs:enumeration value="uix:primitives:skeleton"/>
+            <xs:enumeration value="uix:primitives:spinner"/>
+            <xs:enumeration value="uix:primitives:emptyState"/>
+            <xs:enumeration value="uix:primitives:accordion"/>
+            <xs:enumeration value="uix:primitives:popover"/>
+            <xs:enumeration value="uix:primitives:dropdownMenu"/>
+            <xs:enumeration value="uix:primitives:hoverCard"/>
+            <xs:enumeration value="uix:primitives:contextMenu"/>
+            <xs:enumeration value="uix:primitives:commandPalette"/>
+            <xs:enumeration value="uix:primitives:kbd"/>
+            <xs:enumeration value="uix:primitives:toggle"/>
+            <xs:enumeration value="uix:primitives:aspectRatio"/>
+            <xs:enumeration value="uix:primitives:countdown"/>
+            <xs:enumeration value="uix:social:commentSection"/>
+            <xs:enumeration value="uix:social:feed"/>
+            <xs:enumeration value="uix:social:profilePage"/>
+            <xs:enumeration value="uix:social:chat"/>
+            <xs:enumeration value="uix:social:stories"/>
+            <xs:enumeration value="uix:social:notificationFeed"/>
+            <xs:enumeration value="uix:social:events"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType><xs:restriction base="xs:string"/></xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+
   <xs:element name="project">
     <xs:annotation><xs:documentation>ui-ux-components-pxml: ~152 reusable UI/UX base components.
 Use a component by extending it: &lt;node id="..." type="ui-component" flow="&lt;cat&gt;" extends="uix:&lt;cat&gt;:&lt;name&gt;"&gt;
@@ -298,7 +460,7 @@ then add &lt;constraint verify="llm-judge"&gt; to restyle. Component catalog:
             <xs:attribute name="id" type="xs:string" use="required"/>
             <xs:attribute name="type" type="UiNodeType" use="required"/>
             <xs:attribute name="flow" type="UiFlowType" use="required"/>
-            <xs:attribute name="extends" type="xs:string" use="optional"/>
+            <xs:attribute name="extends" type="UiExtendsType" use="optional"/>
             <xs:attribute name="autogen-tests" type="xs:boolean" use="optional"/>
           </xs:complexType>
         </xs:element>
